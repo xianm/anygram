@@ -5,3 +5,31 @@
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+
+html, body, .container {
+  height: 100%;
+}
+
+#splash.container {
+  display: table;
+  vertical-align: middle;
+}
+
+.vertical-center-row {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#splash-content {
+  padding: 30px;
+
+  border-radius: 10px;
+
+  color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+#splash-content:hover {
+  color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(0, 0, 0, 0.5);
+}

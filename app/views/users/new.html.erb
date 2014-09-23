@@ -1,6 +1,8 @@
-<div class='container'>
-  <div class='row'>
-    <div class='col-xs-4 col-xs-offset-4'>
+<div id='splash' class='container'>
+  <div class='row vertical-center-row'>
+    <div id='splash-content' class='col-xs-4 col-xs-offset-4'>
+      <h4 class='text-center'>Register</h4>
+
       <form role='form' action='<%= register_url %>' method='post'>
         <%= authenticity_token %>
 
@@ -15,7 +17,10 @@
           <input id='user_password' name='user[password]' type='password' class='form-control'>
         </div>
 
-        <button class='btn btn-default pull-right'>Register</button>
+        <div class='form-group pull-right'>
+          <button class='btn btn-default'>Register</button>
+          <span>or <%= link_to 'Sign In', sign_in_url %></span>
+        </div>
       </form>
     </div>
   </div>
