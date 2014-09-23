@@ -18,12 +18,6 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
-# Bootstrap
-gem 'bootstrap-sass'
-
-# Backbone
-gem 'backbone-on-rails'
-
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
@@ -38,8 +32,14 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt'
 gem 'bcrypt-ruby', '~> 3.1.2'
+gem 'bcrypt'
+
+# Bootstrap
+gem 'bootstrap-sass'
+
+# Backbone
+gem 'backbone-on-rails'
 
 group :development do
   gem 'better_errors'
