@@ -7,18 +7,23 @@
         <%= authenticity_token %>
 
         <div class='form-group'>
-          <label for='session_email'>Email</label>
-          <input id='session_email' name='session[email]' type='text' class='form-control'
-          placeholder='you@domain.com'>
+          <input id='session_email' name='session[email]' type='text'
+            class='form-control' placeholder='Email'>
         </div>
 
         <div class='form-group'>
-          <label for='session_password'>Password</label>
-          <input id='session_password' name='session[password]' type='password' class='form-control'>
+          <div class='input-group'>
+            <input id='session_password' name='session[password]' type='password'
+            class='form-control' placeholder='Password'>
+            <span class='input-group-btn'>
+              <button class='btn btn-default'>
+                <span class='glyphicon glyphicon-circle-arrow-right'></span>
+              </button>
+            </span>
+          </div>
         </div>
 
-        <div class='form-group pull-right'>
-          <button class='btn btn-default'>Sign In</button>
+        <div class='pull-right'>
           <span>or <%= link_to 'Register', register_url %></span>
         </div>
       </form>
