@@ -9,21 +9,21 @@ AnyGram aims to be a platform where users can share *anything!* Images, videos, 
 *  Users can register, sign in, and sign out of the application
 *  Support restricting access to certain pages based on whether a user is authenticated
 
-### Phase 1: Image Uploading
-*  Users can upload and browse images
-*  A users page should display all of their uploaded images
-
-### Phase 2: Subscriptions
-*  Users can subscribe to other users submissions
-*  Users homepage will display an updated feed of their subscriptions
-
-### Phase 3: User Profiles
+### Phase 1: User Profiles
 *  Users have various attributes on their accounts that they can edit, such as:
   *  Username - this will be how users navigate to their show page, and refer to them in general
   *  Display name - the name displayed on their profile page
   *  Description - an 'about me' kind of attribute
   *  Location
   *  Sex
+
+### Phase 2: Image Uploading
+*  Users can upload and browse images
+*  A users page should display all of their uploaded images
+
+### Phase 3: Subscriptions
+*  Users can subscribe to other users submissions
+*  Users homepage will display an updated feed of their subscriptions
 
 ### Phase 4: Favoriting
 *  Users can favorite other users submissions
