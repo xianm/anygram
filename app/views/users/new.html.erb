@@ -1,0 +1,13 @@
+<h2>Register</h2>
+
+<form action='<%= register_url %>' method='post'>
+  <%= authenticity_token %>
+
+  <label for='user_email'>Email</label>
+  <input id='user_email' name='user[email]' type='text'>
+
+  <label for='user_password'>Password</label>
+  <input id='user_password' name='user[password]' type='password'>
+
+  <button>Register</button>
+</form>
