@@ -1,8 +1,6 @@
 # AnyGram
---------
 AnyGram aims to be a platform where users can share *anything!* Images, videos, and text for now, but more may be implemented in the future.
 
---------
 
 ## Roadmap
 
