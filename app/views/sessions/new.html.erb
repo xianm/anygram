@@ -1,13 +1,22 @@
-<h2>Sign In</h2>
+<div class='container'>
+  <div class='row'>
+    <div class='col-xs-4 col-xs-offset-4'>
+      <form role='form' action='<%= sign_in_url %>' method='post'>
+        <%= authenticity_token %>
 
-<form action='<%= sign_in_url %>' method='post'>
-  <%= authenticity_token %>
+        <div class='form-group'>
+          <label for='session_email'>Email</label>
+          <input id='session_email' name='session[email]' type='text' class='form-control'
+          placeholder='you@domain.com'>
+        </div>
 
-  <label for='session_email'>Email</label>
-  <input id='session_email' name='session[email]' type='text'>
+        <div class='form-group'>
+          <label for='session_password'>Password</label>
+          <input id='session_password' name='session[password]' type='password' class='form-control'>
+        </div>
 
-  <label for='session_password'>Password</label>
-  <input id='session_password' name='session[password]' type='password'>
-  
-  <button>Sign In</button>
-</form>
+        <button class='btn btn-default pull-right'>Sign In</button>
+      </form>
+    </div>
+  </div>
+</div>
