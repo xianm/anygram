@@ -30,3 +30,8 @@
     </div>
   </div>
 </div>
+<% if flash[:errors] %>
+  <script>
+    $('#splash-content').addClass('animated shake');
+  </script>
+<% end %>
