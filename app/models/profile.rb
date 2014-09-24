@@ -1,15 +1,9 @@
 class Profile < ActiveRecord::Base
-  # complies with ISO/IEC 5218
-  SEX_LOOKUP = {
-    0 => 'Unknown',
-    1 => 'Male',
-    2 => 'Female',
-    9 => 'Not Applicable'
-  }
+  SEX_OPTIONS = { unknown: 0, male: 1, female: 2 }
 
   validates :name, :display_name, :sex, presence: true
   validates :name, uniqueness: true
-  validates :sex, inclusion: { in: SEX_LOOKUP.keys }
+  validates :sex, inclusion: { in: SEX_OPTIONS.values }
   validate :name, :valid_name_format
 
   belongs_to :user

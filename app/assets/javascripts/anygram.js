@@ -4,8 +4,6 @@ window.AnyGram = {
   Views: {},
   Routers: {},
   initialize: function() {
-    console.log('AnyGram.initialize');
-
     new AnyGram.Routers.Router({ $rootEl: $('#content') });
     Backbone.history.start();
   }

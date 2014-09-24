@@ -5,7 +5,7 @@ AnyGram.Routers.Router = Backbone.Router.extend({
 
   routes: {
     '' : 'index',
-    'profile/:id' : 'show'
+    'profiles/:id' : 'show'
   },
 
   index: function () {

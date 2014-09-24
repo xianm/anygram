@@ -1,1 +1,21 @@
-<h1><%= profile.escape('name') %></h1>
+<div class='jumbotron'>
+  <h1>
+    <%= profile.escape('display_name') %>
+  </h1>
+
+  <h2>
+    @<%= profile.escape('name') %> 
+
+    <small class='glyphicon'><%= profile.sexSymbol() %></small>
+
+    <small class='glyphicon'><%= profile.location() %></small>
+  </h2>
+
+  <p>
+  <% if (profile.escape('description') === '') { %>
+    No description.
+  <% } else { %>
+    <%= profile.escape('description') %>
+  <% } %>
+  </p>
+</div>

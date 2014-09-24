@@ -4,6 +4,7 @@ AnyGram.Views.ProfileShow = Backbone.View.extend({
   },
 
   template: JST['profile/show'],
+  className: 'container',
 
   render: function () {
     var content = this.template({ profile: this.model });
