@@ -7,6 +7,19 @@
         <%= authenticity_token %>
 
         <div class='form-group'>
+          <div class='input-group'>
+            <span class='input-group-addon'>@</span>
+            <input id='profile_name' name='profile[name]' type='text'
+              class='form-control' placeholder='Name'>
+          </div>
+        </div>
+
+        <div class='form-group'>
+          <input id='profile_display_name' name='profile[display_name]'
+            type='text' class='form-control' placeholder='Display Name'>
+        </div>
+
+        <div class='form-group'>
           <input id='user_email' name='user[email]' type='text' 
             class='form-control' placeholder='Email'>
         </div>
@@ -14,7 +27,7 @@
         <div class='form-group'>
           <div class='input-group'>
             <input id='user_password' name='user[password]' type='password'
-            class='form-control' placeholder='Password'>
+              class='form-control' placeholder='Password'>
             <span class='input-group-btn'>
               <button class='btn btn-default'>
                 <span class='glyphicon glyphicon-circle-arrow-right'></span>

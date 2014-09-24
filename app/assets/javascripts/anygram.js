@@ -1,10 +1,10 @@
-window.Anygram = {
+window.AG = {
   Models: {},
   Collections: {},
   Views: {},
   Routers: {},
   initialize: function() {
-    alert('Hello from Backbone!');
+    console.log('AG.initialize');
   }
 };
 
