@@ -22,7 +22,7 @@ AnyGram.Routers.Router = Backbone.Router.extend({
 
   edit: function () {
     var view = new AnyGram.Views.ProfileEdit({
-      model: AnyGram.profiles.getOrFetch(AnyGram.currentUserId)
+      model: AnyGram.currentUser.profile()
     });
     this.changeView(view);
   }

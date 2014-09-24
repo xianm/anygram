@@ -1,4 +1,8 @@
 AnyGram.Models.Profile = Backbone.Model.extend({
+  initialize: function (options) {
+    this.user = options.user;
+  },
+
   urlRoot: '/api/profiles',
 
   sexSymbol: function () {

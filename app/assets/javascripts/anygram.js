@@ -5,6 +5,8 @@ window.AnyGram = {
   Routers: {},
 
   initialize: function() {
+    AnyGram.currentUser = AnyGram.users.getOrFetch(AnyGram.currentUserId);
+
     new AnyGram.Routers.Router({ $rootEl: $('#content') });
     Backbone.history.start();
   },
@@ -36,3 +38,4 @@ window.AnyGram = {
     return $el.empty().hide();
   }
 };
+
