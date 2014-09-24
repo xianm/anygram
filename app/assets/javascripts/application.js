@@ -24,3 +24,12 @@
 //= require_tree ./views
 //= require_tree ./routers
 //= require_tree .
+
+Backbone.Router.prototype.changeView = function (view) {
+  if (this.currentView) {
+    this.currentView.remove();
+  }
+
+  this.$rootEl.html(view.render().$el);
+  this.currentView = view;
+};
