@@ -10,7 +10,7 @@ AnyGram.Routers.Router = Backbone.Router.extend({
   },
 
   index: function () {
-    console.log('Router::index');
+    this.$rootEl.html('TODO: Image Feed');
   },
 
   show: function (id) {

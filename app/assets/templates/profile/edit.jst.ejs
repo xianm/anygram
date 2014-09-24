@@ -1,13 +1,16 @@
-<div class='row'>
-  <form class='form-horizontal' role='form' action='#'>
+<form class='form-horizontal' role='form' action='#'>
+
+  <div class='col-sm-10 col-sm-offset-1'>
     <div class='form-group'>
       <h2>Edit Profile</h2>
     </div>
 
     <div id='inline-alerts'></div>
+  </div>
 
-    <div class='form-group'>
-      <label for='profile_name' class='control-label'>Name</label>
+  <div class='form-group'>
+    <label for='profile_name' class='col-sm-2 col-sm-offset-1 hidden-xs control-label'>Name</label>
+    <div class='col-sm-8'>
       <div class='input-group'>
         <span class='input-group-addon'>@</span>
         <input id='profile_name' name='profile[name]' type='text'
@@ -15,45 +18,55 @@
           value='<%= profile.escape("name") %>'>
       </div>
     </div>
+  </div>
 
-    <div class='form-group'>
-      <label for='profile_display_name' class='control-label'>Display Name</label>
+  <div class='form-group'>
+    <label for='profile_display_name' class='col-sm-2 col-sm-offset-1 hidden-xs control-label'>Display Name</label>
+    <div class='col-sm-8'>
       <input id='profile_display_name' name='profile[display_name]'
-        type='text' class='form-control' placeholder='Display Name'
-        value='<%= profile.escape("display_name") %>'>
+      type='text' class='form-control' placeholder='Display Name'
+      value='<%= profile.escape("display_name") %>'>
     </div>
+  </div>
 
-    <div class='form-group'>
-      <label for='profile_location' class='control-label'>Location</label>
+  <div class='form-group'>
+    <label for='profile_location' class='col-sm-2 col-sm-offset-1 hidden-xs control-label'>Location</label>
+    <div class='col-sm-8'>
       <input id='profile_location' name='profile[location]' type='text' 
-        class='form-control' placeholder='Location'
-        value='<%= profile.escape("location") %>'>
+      class='form-control' placeholder='Location'
+      value='<%= profile.escape("location") %>'>
     </div>
+  </div>
 
-    <div class='form-group'>
-      <label for='profile_sex' class='control-label'>Sex</label>
+  <div class='form-group'>
+    <label for='profile_sex' class='col-sm-2 col-sm-offset-1 hidden-xs control-label'>Sex</label>
+    <div class='col-sm-8'>
       <select id='profile_sex' name='profile[sex]' class='form-control'>
         <option value='0' <%= profile.get('sex') === 0 ? 'selected' : '' %>>
-          Unknown
+        Unknown
         </option>
         <option value='1' <%= profile.get('sex') === 1 ? 'selected' : '' %>>
-          Male
+        Male
         </option>
         <option value='2' <%= profile.get('sex') === 2 ? 'selected' : '' %>>
-          Female
+        Female
         </option>
       </select>
     </div>
+  </div>
 
-    <div class='form-group'>
-      <label for='profile_description' class='control-label'>Description</label>
+  <div class='form-group'>
+    <label for='profile_description' class='col-sm-2 col-sm-offset-1 hidden-xs control-label'>Description</label>
+    <div class='col-sm-8'>
       <textarea id='profile_description' name='profile[description]'
         class='form-control' placeholder='Description' 
         rows='8'><%= profile.escape('description') %></textarea>
     </div>
+  </div>
 
-    <div class='form-group'>
+  <div class='form-group'>
+    <div class='col-sm-1 col-sm-offset-3'>
       <button class='btn btn-default'>Save</button>
     </div>
-  </form>
-</div>
+  </div>
+</form>

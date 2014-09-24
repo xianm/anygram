@@ -4,7 +4,7 @@ AnyGram.Views.ProfileEdit = Backbone.View.extend({
   },
 
   template: JST['profile/edit'],
-  className: 'container',
+  className: 'container-fluid',
 
   events: {
     'submit form': 'onSubmit'
