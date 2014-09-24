@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.build_profile(profile_params)
 
     if @user.save
       sign_in!(@user)
@@ -31,5 +32,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password)
+  end
+
+  def profile_params
+    params.require(:profile).permit(:name, :display_name)
   end
 end

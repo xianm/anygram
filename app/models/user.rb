@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   validates :email, :session_token, uniqueness: true
   validates :password, length: { minimum: 6 }, allow_nil: true
 
-  has_one :profile
+  has_one :profile, autosave: true, dependent: :destroy
 
   attr_reader :password
 
