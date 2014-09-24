@@ -1,0 +1,59 @@
+<div class='row'>
+  <form class='form-horizontal' role='form' action='#'>
+    <div class='form-group'>
+      <h2>Edit Profile</h2>
+    </div>
+
+    <div id='inline-alerts'></div>
+
+    <div class='form-group'>
+      <label for='profile_name' class='control-label'>Name</label>
+      <div class='input-group'>
+        <span class='input-group-addon'>@</span>
+        <input id='profile_name' name='profile[name]' type='text'
+          class='form-control' placeholder='Name'
+          value='<%= profile.escape("name") %>'>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <label for='profile_display_name' class='control-label'>Display Name</label>
+      <input id='profile_display_name' name='profile[display_name]'
+        type='text' class='form-control' placeholder='Display Name'
+        value='<%= profile.escape("display_name") %>'>
+    </div>
+
+    <div class='form-group'>
+      <label for='profile_location' class='control-label'>Location</label>
+      <input id='profile_location' name='profile[location]' type='text' 
+        class='form-control' placeholder='Location'
+        value='<%= profile.escape("location") %>'>
+    </div>
+
+    <div class='form-group'>
+      <label for='profile_sex' class='control-label'>Sex</label>
+      <select id='profile_sex' name='profile[sex]' class='form-control'>
+        <option value='0' <%= profile.get('sex') === 0 ? 'selected' : '' %>>
+          Unknown
+        </option>
+        <option value='1' <%= profile.get('sex') === 1 ? 'selected' : '' %>>
+          Male
+        </option>
+        <option value='2' <%= profile.get('sex') === 2 ? 'selected' : '' %>>
+          Female
+        </option>
+      </select>
+    </div>
+
+    <div class='form-group'>
+      <label for='profile_description' class='control-label'>Description</label>
+      <textarea id='profile_description' name='profile[description]'
+        class='form-control' placeholder='Description' 
+        rows='8'><%= profile.escape('description') %></textarea>
+    </div>
+
+    <div class='form-group'>
+      <button class='btn btn-default'>Save</button>
+    </div>
+  </form>
+</div>

@@ -2,4 +2,7 @@
 
 <main id='content'></main>
 
-<script>$(AnyGram.initialize);</script>
+<script>
+  AnyGram.currentUserId = <%= current_user.id %>;
+  $(AnyGram.initialize);
+</script>
