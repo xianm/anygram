@@ -41,6 +41,13 @@ gem 'bootstrap-sass'
 # Backbone
 gem 'backbone-on-rails'
 
+# Fiagaro allows us to store secret variables
+gem 'figaro'
+
+# Image upload gems
+gem 'paperclip'
+gem 'aws-sdk'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'

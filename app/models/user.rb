@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }, allow_nil: true
 
   has_one :profile, autosave: true, dependent: :destroy
+  has_many :submissions, dependent: :destroy
 
   attr_reader :password
 
