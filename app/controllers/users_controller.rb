@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_action :require_authentication, except: [:new, :create]
-  before_action :require_ownership, only: :show
 
   def new
     @user = User.new
@@ -37,12 +36,5 @@ class UsersController < ApplicationController
 
   def profile_params
     params.require(:profile).permit(:name, :display_name)
-  end
-
-  def require_ownership
-    unless current_user == User.find(params[:id])
-      render json: ['You do not have permission to view that user.'],
-        status: :forbidden
-    end
   end
 end

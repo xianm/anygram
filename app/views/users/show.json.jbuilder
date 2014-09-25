@@ -1,4 +1,4 @@
-json.(@user, :id, :email)
+json.(@user, :id)
 
 json.profile @user.profile
 

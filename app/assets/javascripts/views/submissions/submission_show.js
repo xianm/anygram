@@ -7,7 +7,10 @@ AnyGram.Views.SubmissionShow = Backbone.View.extend({
   className: 'container-fluid',
 
   render: function () {
-    var content = this.template({ submission: this.model });
+    var content = this.template({ 
+      submission: this.model,
+      user: this.model.user
+    });
     this.$el.html(content);
     return this;
   }
