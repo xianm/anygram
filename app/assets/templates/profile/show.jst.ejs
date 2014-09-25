@@ -20,15 +20,19 @@
   </p>
 </div>
 
-<% if (profile.user && profile.user.submissions()) { %>
-<div class='row'>
-  <% profile.user.submissions().forEach(function (submission) { %>
-  <div class='col-xs-3'>
-    <a href='/#/view/<%= submission.id %>'>
-      <img class='img-thumbnail' src='<%= submission.escape('url') %>'>
-    </a>
+<% if (user && user.submissions()) { %>
+  <% submissions = profile.user.submissions(); %>
+
+  <% for (var i = 0, l = submissions.length; i < l; i += 4) { %>
+  <div class='row thumb-row'>
+    <% submissions.slice(i, i + 4).forEach(function (s) { %>
+    <div class='col-xs-3'>
+      <a href='/#/view/<%= s.id %>'>
+        <img class='img-thumbnail' src='<%= s.escape('url') %>'>
+      </a>
+    </div>
+    <% }); %>
   </div>
-  <% }); %>
-</div>
+  <% } %>
 <% } %>
 

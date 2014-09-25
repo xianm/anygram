@@ -7,7 +7,11 @@ AnyGram.Views.ProfileShow = Backbone.View.extend({
   className: 'container-fluid',
 
   render: function () {
-    var content = this.template({ profile: this.model });
+    var content = this.template({ 
+      profile: this.model,
+      user: this.model.user
+    });
+
     this.$el.html(content);
     return this;
   }
