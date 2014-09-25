@@ -1,14 +1,5 @@
 AnyGram.Models.Profile = Backbone.Model.extend({
-  initialize: function (options) {
-    this.user = options.user;
-    this.on('change:user_id', this.fetchUser, this);
-  },
-
   urlRoot: '/api/profiles',
-
-  fetchUser: function (models, options) {
-    this.user = this.user || AnyGram.users.getOrFetch(this.get('user_id'));
-  },
 
   sexSymbol: function () {
     switch (this.get('sex')) {
@@ -24,5 +15,20 @@ AnyGram.Models.Profile = Backbone.Model.extend({
     } else {
       return 'Unknown';
     }
+  },
+
+  submissions: function () {
+    this._submissions = this._submissions || 
+      new AnyGram.Collections.Submissions();
+    return this._submissions;
+  },
+
+  parse: function (resp, options) {
+    if (resp.submissions) {
+      this.submissions().set(resp.submissions, { parse: true });
+      delete resp.submissions;
+    }
+
+    return resp;
   }
 });

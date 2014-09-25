@@ -1,23 +1,18 @@
-<% if (user && user.profile()) { %> <!-- TODO: how do i avoid doing this? -->
-  <% var profile = user.profile(); %>
-
-  <div class='row'>
-    <div class='col-sm-2 col-sm-offset-2'>
-      <div class='row'>
-        <div class='col-sm-12 col-xs-6'>
-          <a href='#/profiles/<%= profile.id %>'>
-            <%= profile.escape('name') %>
-          </a>
-        </div>
-        <div class='col-sm-12 col-xs-6'>
-          <%= submission.createdAt() %>
-        </div>
+<div class='row'>
+  <div class='col-sm-2 col-sm-offset-2'>
+    <div class='row'>
+      <div class='col-sm-12 col-xs-6'>
+        <a href='#/profiles/<%= profile.id %>'>
+          <%= profile.escape('name') %>
+        </a>
+      </div>
+      <div class='col-sm-12 col-xs-6'>
+        <%= submission.createdAt() %>
       </div>
     </div>
-
-    <div class='col-sm-8'>
-      <img class='img-thumbnail' src="<%= submission.escape('url') %>">
-    </div>
   </div>
-<% } %>
 
+  <div class='col-sm-8'>
+    <img class='img-thumbnail' src="<%= submission.escape('url') %>">
+  </div>
+</div>

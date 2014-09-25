@@ -9,7 +9,7 @@ AnyGram.Views.SubmissionShow = Backbone.View.extend({
   render: function () {
     var content = this.template({ 
       submission: this.model,
-      user: this.model.user
+      profile: this.model.profile()
     });
     this.$el.html(content);
     return this;

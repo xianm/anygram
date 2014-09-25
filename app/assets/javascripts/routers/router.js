@@ -5,8 +5,8 @@ AnyGram.Routers.Router = Backbone.Router.extend({
 
   routes: {
     '': 'index',
-    'profiles/:id': 'show',
-    'edit_profile': 'edit',
+    'profiles/:id': 'showProfile',
+    'edit_profile': 'editProfile',
     'upload': 'newSubmission',
     'view/:id': 'showSubmission'
   },
@@ -15,14 +15,14 @@ AnyGram.Routers.Router = Backbone.Router.extend({
     this.$rootEl.text('TODO: Feed');
   },
 
-  show: function (id) {
+  showProfile: function (id) {
     var view = new AnyGram.Views.ProfileShow({
       model: AnyGram.profiles.getOrFetch(id)
     });
     this.changeView(view);
   },
 
-  edit: function () {
+  editProfile: function () {
     var view = new AnyGram.Views.ProfileEdit({
       model: AnyGram.currentUser.profile()
     });

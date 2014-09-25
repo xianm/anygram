@@ -4,8 +4,7 @@ class Api::ProfilesController < ApplicationController
 
   def show
     @profile = Profile.find(params[:id])
-
-    render json: @profile
+    render :show
   end
 
   def update
