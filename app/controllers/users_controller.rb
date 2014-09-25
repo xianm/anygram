@@ -20,12 +20,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(:profile).find(params[:id])
+    @user = User.includes(:profile, :submissions).find(params[:id])
 
     if (@user)
-      render json: @user, 
-        except: [:password_digest, :session_token], 
-        include: :profile
+      render :show
     else
       render json: ['Invalid user.'], status: :not_found
     end

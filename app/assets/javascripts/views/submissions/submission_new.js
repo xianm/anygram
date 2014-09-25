@@ -19,7 +19,7 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
     var reader = new FileReader();
 
     reader.onload = function (e) {
-      var $foobar = $('#foobar');
+      var $wrapper = $('#editor-wrapper');
       var $canvas = $('#editor');
       var ctx = $canvas.get(0).getContext('2d');
 
@@ -38,7 +38,7 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
         ctx.drawImage(img, x, y, width, height);
 
         $('form').hide();
-        $foobar.show();
+        $wrapper.show();
       };
     };
 
@@ -50,9 +50,11 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
 
     var canvas = $('#editor').get(0);
     var data = canvas.toDataURL('image/jpeg');
-    console.log(data);
 
-    this.model.set('source', data);
-    this.model.save();
+    this.model.save({ source: data }, {
+      success: function (model) {
+        Backbone.history.navigate('#/view/' + model.id);
+      }
+    });
   }
 });
