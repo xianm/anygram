@@ -1,16 +1,13 @@
 AnyGram.Models.Profile = Backbone.Model.extend({
   initialize: function (options) {
     this.user = options.user;
-
     this.on('change:user_id', this.fetchUser, this);
   },
 
   urlRoot: '/api/profiles',
 
   fetchUser: function (models, options) {
-    if (!this.user) {
-      this.user = AnyGram.users.getOrFetch(this.get('user_id'));
-    }
+    this.user = this.user || AnyGram.users.getOrFetch(this.get('user_id'));
   },
 
   sexSymbol: function () {

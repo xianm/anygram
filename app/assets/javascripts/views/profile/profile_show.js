@@ -1,6 +1,11 @@
 AnyGram.Views.ProfileShow = Backbone.View.extend({
   initialize: function () {
     this.listenTo(this.model, 'sync', this.render);
+    this.listenTo(this.model, 'change:user_id', this.listenToUser);
+  },
+
+  listenToUser: function (model) {
+    this.listenTo(model.user, 'sync', this.render);
   },
 
   template: JST['profile/show'],
