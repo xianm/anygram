@@ -19,7 +19,7 @@ AnyGram.Views.FeedShow = Backbone.CompositeView.extend({
   },
 
   addSubmission: function (submission) {
-    var view = new AnyGram.Views.FeedSubmissionShow({
+    var view = new AnyGram.Views.SubmissionFeed({
       model: submission
     });
     this.addSubview('#submissions', view);

@@ -1,9 +1,9 @@
-AnyGram.Views.FeedSubmissionShow = Backbone.CompositeView.extend({
+AnyGram.Views.SubmissionFeed = Backbone.View.extend({
   initialize: function () {
     this.listenTo(this.model, 'sync', this.render);
   },
 
-  template: JST['feed/submission_show'],
+  template: JST['submission/feed'],
   className: 'row',
 
   render: function () {
