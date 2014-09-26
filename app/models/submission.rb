@@ -3,4 +3,5 @@ class Submission < ActiveRecord::Base
   validates_attachment_content_type :source, content_type: /\Aimage.*\Z/
 
   belongs_to :user
+  has_one :profile, through: :user
 end

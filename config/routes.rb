@@ -14,6 +14,7 @@ Anygram::Application.routes.draw do
       delete 'follow', to: 'follows#destroy'
     end
     resources :submissions, only: [:create, :show]
+    resource :feed, only: [:show]
   end
 
   root 'static_pages#root'

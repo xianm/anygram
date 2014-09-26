@@ -12,7 +12,10 @@ AnyGram.Routers.Router = Backbone.Router.extend({
   },
 
   index: function () {
-    this.$rootEl.text('TODO: Feed');
+    var view = new AnyGram.Views.FeedShow({
+      model: new AnyGram.Models.Feed()
+    });
+    this.changeView(view);
   },
 
   showProfile: function (id) {
