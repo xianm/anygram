@@ -42,7 +42,7 @@ window.AnyGram = {
 
 
     var $root = AnyGram.clearAlert(selector);
-    var $el = $('<div>').addClass('alert alert-' + type);
+    var $el = $('<div>').addClass('animated fadeIn alert alert-' + type);
     var $ul = $('<ul>');
 
     alerts.forEach(function (item) {
@@ -55,6 +55,7 @@ window.AnyGram = {
 
   clearAlert: function (selector) {
     var $el = $(selector || '#default-alerts');
+    $el.removeClass('animated fadeIn');
     return $el.empty().hide();
   }
 };
