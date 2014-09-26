@@ -4,7 +4,8 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
 
   events: {
     'change #source': 'onChange',
-    'click #upload': 'onUpload'
+    'click #upload': 'onUpload',
+    'click #cancel': 'onCancel'
   },
 
   render: function () {
@@ -56,5 +57,17 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
         Backbone.history.navigate('#/view/' + model.id);
       }
     });
+  },
+
+  onCancel: function (event) {
+    event.preventDefault();
+
+    var $wrapper = $('#editor-wrapper');
+    var $canvas = $('#editor');
+    var canvas = $canvas.get(0);
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, 512, 512);
+    $wrapper.hide();
+    $('form').show();
   }
 });
