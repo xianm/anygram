@@ -3,29 +3,45 @@ $.FollowToggle = function (el, options) {
   this.following = options.following;
   this.userId = options.userId;
 
-  this.render();
-
   this.$el.on('click', this.handleClick.bind(this));
+
+  this.render();
 };
 
 $.FollowToggle.prototype.handleClick = function (event) {
   event.preventDefault();
 
-  if (this.following) {
-    this.following = false;
-  } else {
-    this.following = true;
-  }
+  AnyGram.clearAlert();
 
-  this.render();
+  var text = this.following ? 'Unfollowing...' : 'Following...';
+  this.setButtonDisabled(true, text);
+
+  $.ajax({
+    url: '/api/profiles/' + this.userId + '/follow',
+    method: this.following ? 'DELETE' : 'POST',
+    dataType: 'json',
+    success: function () {
+      this.following = !this.following;
+      this.$el.prop('disabled', false);
+      this.render();
+    }.bind(this),
+
+    error: function () {
+      AnyGram.alert('Something went wrong!');
+      this.$el.prop('disabled', false);
+      this.render();
+    }.bind(this)
+  });
+
+};
+
+$.FollowToggle.prototype.setButtonDisabled = function (value, text) {
+  this.$el.text(text);
+  this.$el.prop('disabled', value);
 };
 
 $.FollowToggle.prototype.render = function () {
-  if (this.following) {
-    this.$el.text('Unfollow');
-  } else {
-    this.$el.text('Follow');
-  }
+  this.$el.text(this.following ? 'Unfollow' : 'Follow');
 };
 
 $.fn.followToggle = function (options) {
