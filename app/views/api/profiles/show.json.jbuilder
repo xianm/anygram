@@ -1,4 +1,4 @@
-json.(@profile, :id, :user_id, :name, :display_name, :description, :location,
+json.(@profile, :id, :user_id, :name, :display_name, :bio, :location,
       :sex, :created_at, :updated_at)
 
 json.following current_user.follows?(@profile.user)

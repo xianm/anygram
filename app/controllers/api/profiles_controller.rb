@@ -20,8 +20,7 @@ class Api::ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.require(:profile).permit(:name, :display_name, :location, :sex,
-                                    :description)
+    params.require(:profile).permit(:name, :display_name, :location, :sex, :bio)
   end
 
   def require_ownership

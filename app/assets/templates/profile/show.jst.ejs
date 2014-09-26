@@ -7,13 +7,11 @@
     <small><%= profile.location() %></small>
   </h2>
 
+  <% if (profile.get('bio')) { %>
   <p>
-    <% if (profile.escape('description') === '') { %>
-      No description.
-    <% } else { %>
-      <%= profile.escape('description') %>
-    <% } %>
+    <%= profile.escape('bio') %>
   </p>
+  <% } %>
 
   <p>
     <% if (AnyGram.currentUser.profile().id === profile.id) { %>
