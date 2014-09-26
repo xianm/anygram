@@ -5,18 +5,20 @@ window.AnyGram = {
   Routers: {},
 
   initialize: function() {
-    AnyGram.currentUser = AnyGram.users.getOrFetch(AnyGram.currentUserId);
+    AnyGram.currentUser = AnyGram.users.getOrFetch(AnyGram.currentUserId, {
+      success: function () {
+        var router = new AnyGram.Routers.Router({ $rootEl: $('#content') });
 
-    var router = new AnyGram.Routers.Router({ $rootEl: $('#content') });
-
-    // This gets called before every route action is called
-    Backbone.history.on('route', function () {
-      AnyGram.clearAlert();
+        // This gets called before every route action is called
+        Backbone.history.on('route', function () {
+          AnyGram.clearAlert();
+        });
+        
+        if (!Backbone.history.start()) {
+          AnyGram.notFound();
+        }
+      }
     });
-    
-    if (!Backbone.history.start()) {
-      AnyGram.notFound();
-    }
   },
 
   notFound: function () {
@@ -57,7 +59,7 @@ window.AnyGram = {
   }
 };
 
-$(document).ajaxError(function(e, xhr, settings, exception) {
+$(document).ajaxError(function (e, xhr, settings, exception) {
   if (xhr.status === 404) {
     AnyGram.notFound();
   }

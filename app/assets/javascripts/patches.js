@@ -1,14 +1,20 @@
-Backbone.Collection.prototype.getOrFetch = function (id) {
+Backbone.Collection.prototype.getOrFetch = function (id, options) {
   var entity = this.get(id);
 
   if (entity) {
-    entity.fetch();
+    entity.fetch(options);
   } else {
     entity = new this.model({ id: id });
     entity.fetch({
       success: function () {
         this.add(entity);
-      }.bind(this)
+
+        if (options && options.success) options.success(arguments);
+      }.bind(this),
+
+      error: function () {
+        if (options && options.error) options.error(arguments);
+      }
     });
   }
 
