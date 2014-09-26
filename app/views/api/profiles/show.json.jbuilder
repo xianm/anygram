@@ -5,3 +5,5 @@ json.submissions @profile.user.submissions do |submission|
   json.(submission, :id, :created_at)
   json.url submission.source.url
 end
+
+json.following current_user.follows?(@profile.user)

@@ -13,6 +13,11 @@ AnyGram.Views.ProfileShow = Backbone.View.extend({
     });
 
     this.$el.html(content);
+
+    var $followBtn = this.$el.find('#follow-btn');
+    $followBtn.followToggle({ 
+    following: this.model.get('following') }); 
+
     return this;
   }
 });
