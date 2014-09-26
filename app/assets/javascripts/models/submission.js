@@ -1,9 +1,25 @@
 AnyGram.Models.Submission = Backbone.Model.extend({
   urlRoot: '/api/submissions',
 
-  createdAt: function () {
-    var date = new Date(this.get('created_at'));
-    return date.toDateString();
+  favoritesStr: function (preview) {
+    if (this.favorers().length === 0) {
+      return 'Be the first to like this!';
+    }
+
+    var html = preview.map(function (f) {
+      return f.linkTo();
+    }).join(', ');
+
+    var remainder = Math.max(0, this.favorers().length - preview.length);
+
+    if (remainder) {
+      html += ' and ' + remainder + ' other';
+      if (remainder !== 1) html += 's';
+    }
+
+    html += preview.length === 1 ? ' likes' : ' like' + ' this.';
+
+    return html;
   },
 
   submitter: function () {

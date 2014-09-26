@@ -19,14 +19,8 @@
 
     <div class='row'>
       <div class='col-sm-8'>
-      <% var preview = favorers.slice(0, 3); %>
-      <% var remainder = Math.max(0, favorers.length - 3); %>
-
-        <%= preview.map(function (f) { return f.linkTo() }).join(', ') %>
-
-        <% if (remainder) { %>
-        and <%= remainder %> others like this.
-        <% } %>
+        <% var preview = favorers.slice(0, 3); %>
+        <%= submission.favoritesStr(preview) %>
       </div>
 
     </div>
