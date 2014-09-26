@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :followed, through: :out_follows, source: :user
 
   has_many :favorites
-  has_many :favorited, through: :favorites, source: :user
+  has_many :favorited, through: :favorites, source: :submission
   
   attr_reader :password
 
@@ -58,5 +58,13 @@ class User < ActiveRecord::Base
       .uniq
 
     @submissions.includes(:profile)
+  end
+
+  def favorite!(submission_id)
+    self.favorites.create!(submission_id: submission_id)
+  end
+
+  def unfavorite!(submission_id)
+    self.favorites.find_by(submission_id: submission_id).destroy!
   end
 end

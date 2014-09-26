@@ -13,7 +13,10 @@ Anygram::Application.routes.draw do
       post   'follow', to: 'follows#create'
       delete 'follow', to: 'follows#destroy'
     end
-    resources :submissions, only: [:create, :show]
+    resources :submissions, only: [:create, :show] do
+      post   'favorite', to: 'favorites#create'
+      delete 'favorite', to: 'favorites#destroy'
+    end
     resource :feed, only: [:show]
   end
 

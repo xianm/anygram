@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926174133) do
+ActiveRecord::Schema.define(version: 20140926180139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "favorites", force: true do |t|
+    t.integer  "user_id",       null: false
+    t.integer  "submission_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "favorites", ["submission_id"], name: "index_favorites_on_submission_id", using: :btree
+  add_index "favorites", ["user_id", "submission_id"], name: "index_favorites_on_user_id_and_submission_id", unique: true, using: :btree
+  add_index "favorites", ["user_id"], name: "index_favorites_on_user_id", using: :btree
 
   create_table "follows", force: true do |t|
     t.integer  "user_id",     null: false
