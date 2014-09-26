@@ -1,6 +1,9 @@
-AnyGram.Views.ProfileShow = Backbone.View.extend({
+AnyGram.Views.ProfileShow = Backbone.CompositeView.extend({
   initialize: function () {
     this.listenTo(this.model, 'sync', this.render);
+    this.listenTo(this.collection, 'add', this.addThumbnail);
+
+    this.model.submissions().each(this.addThumbnail.bind(this));
   },
 
   template: JST['profile/show'],
@@ -9,10 +12,11 @@ AnyGram.Views.ProfileShow = Backbone.View.extend({
   render: function () {
     var content = this.template({ 
       profile: this.model,
-      submissions: this.model.submissions()
     });
 
     this.$el.html(content);
+
+    this.attachSubviews();
 
     var $followBtn = this.$el.find('#follow-btn');
     $followBtn.followToggle( {
@@ -21,5 +25,12 @@ AnyGram.Views.ProfileShow = Backbone.View.extend({
     }); 
 
     return this;
+  },
+
+  addThumbnail: function (submission) {
+    var view = new AnyGram.Views.SubmissionThumbnail({
+      model: submission
+    });
+    this.addSubview('#thumbnails', view);
   }
 });

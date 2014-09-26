@@ -23,8 +23,11 @@ AnyGram.Routers.Router = Backbone.Router.extend({
   },
 
   showProfile: function (id) {
+    var profile = AnyGram.profiles.getOrFetch(id);
+
     var view = new AnyGram.Views.ProfileShow({
-      model: AnyGram.profiles.getOrFetch(id)
+      model: profile,
+      collection: profile.submissions()
     });
     this.changeView(view);
   },
