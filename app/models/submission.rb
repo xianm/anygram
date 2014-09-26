@@ -4,4 +4,7 @@ class Submission < ActiveRecord::Base
 
   belongs_to :user
   has_one :profile, through: :user
+
+  has_many :favorites
+  has_many :favorers, through: :favorites, source: :user
 end
