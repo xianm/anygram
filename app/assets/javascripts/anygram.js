@@ -7,8 +7,25 @@ window.AnyGram = {
   initialize: function() {
     AnyGram.currentUser = AnyGram.users.getOrFetch(AnyGram.currentUserId);
 
-    new AnyGram.Routers.Router({ $rootEl: $('#content') });
-    Backbone.history.start();
+    var router = new AnyGram.Routers.Router({ $rootEl: $('#content') });
+
+    // This gets called before every route action is called
+    Backbone.history.on('route', function () {
+      AnyGram.clearAlert();
+    });
+    
+    if (!Backbone.history.start()) {
+      AnyGram.notFound();
+    }
+  },
+
+  notFound: function () {
+    Backbone.history.navigate('/', { 
+      trigger: true,
+      replace: true
+    });
+
+    AnyGram.alert("Oops! That page doesn't exist.");
   },
 
   alert: function (alerts, options) {
@@ -40,3 +57,8 @@ window.AnyGram = {
   }
 };
 
+$(document).ajaxError(function(e, xhr, settings, exception) {
+  if (xhr.status === 404) {
+    AnyGram.notFound();
+  }
+});
