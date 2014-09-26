@@ -1,6 +1,7 @@
 <div class='jumbotron'>
   <h1>
     <%= profile.escape('display_name') %>
+
   </h1>
 
   <h2>
@@ -16,6 +17,14 @@
     No description.
   <% } else { %>
     <%= profile.escape('description') %>
+  <% } %>
+  </p>
+
+  <p>
+  <% if (AnyGram.currentUser.profile().id === profile.id) { %>
+    <small><a href='#/edit_profile'>Edit</a></small>
+  <% } else { %>
+    <button id='follow-btn'></button>
   <% } %>
   </p>
 </div>

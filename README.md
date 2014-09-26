@@ -21,9 +21,9 @@ AnyGram aims to be a platform where users can share *anything!* Images, videos, 
 *  Users can upload and browse images
 *  A users page should display all of their uploaded images
 
-### Phase 3: Subscriptions
-*  Users can subscribe to other users submissions
-*  Users homepage will display an updated feed of their subscriptions
+### Phase 3: Following
+*  Users can follow other users 
+*  Users homepage will display a feed of followed users latest submissions
 
 ### Phase 4: Favoriting
 *  Users can favorite other users submissions

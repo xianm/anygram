@@ -21,6 +21,7 @@ window.AnyGram = {
       type = options.type || type;
     }
 
+
     var $root = AnyGram.clearAlert(selector);
     var $el = $('<div>').addClass('alert alert-' + type);
     var $ul = $('<ul>');
@@ -30,7 +31,7 @@ window.AnyGram = {
     });
 
     $el.append($ul);
-    return $root.append($el).show();
+    $root.append($el).show();
   },
 
   clearAlert: function (selector) {

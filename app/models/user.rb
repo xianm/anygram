@@ -6,6 +6,11 @@ class User < ActiveRecord::Base
   has_one :profile, autosave: true, dependent: :destroy
   has_many :submissions, dependent: :destroy
 
+  has_many :in_follows, class_name: 'Follow'
+  has_many :out_follows, class_name: 'Follow', foreign_key: 'follower_id'
+  has_many :followers, through: :in_follows, source: :follower
+  has_many :followed, through: :out_follows, source: :user
+  
   attr_reader :password
 
   after_initialize :ensure_session_token
@@ -35,5 +40,20 @@ class User < ActiveRecord::Base
 
   def is_password?(password)
     BCrypt::Password.new(self.password_digest).is_password?(password)
+  end
+
+  def follows?(user)
+    followed.include?(user)
+  end
+
+  def feed_submissions
+    @submissions = Submission
+      .joins(:user)
+      .joins('LEFT OUTER JOIN follows ON users.id = follows.user_id')
+      .where('submissions.user_id = :id OR follows.follower_id = :id', id: self.id)
+      .order('submissions.created_at DESC')
+      .uniq
+
+    @submissions.includes(:profile)
   end
 end

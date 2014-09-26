@@ -9,8 +9,12 @@ Anygram::Application.routes.draw do
   delete 'sign_out', to: 'sessions#destroy'
 
   namespace :api, defaults: { format: :json } do
-    resources :profiles, only: [:show, :update]
+    resources :profiles, only: [:show, :update] do
+      post   'follow', to: 'follows#create'
+      delete 'follow', to: 'follows#destroy'
+    end
     resources :submissions, only: [:create, :show]
+    resource :feed, only: [:show]
   end
 
   root 'static_pages#root'
