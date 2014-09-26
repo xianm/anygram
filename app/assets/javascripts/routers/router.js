@@ -4,14 +4,14 @@ AnyGram.Routers.Router = Backbone.Router.extend({
   },
 
   routes: {
-    '': 'index',
+    '': 'showFeed',
     'profiles/:id': 'showProfile',
     'edit_profile': 'editProfile',
     'upload': 'newSubmission',
     'view/:id': 'showSubmission'
   },
 
-  index: function () {
+  showFeed: function () {
     var view = new AnyGram.Views.FeedShow({
       model: new AnyGram.Models.Feed()
     });
