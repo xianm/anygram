@@ -1,6 +1,12 @@
 AnyGram.Models.Profile = Backbone.Model.extend({
   urlRoot: '/api/profiles',
 
+  linkTo: function () {
+    return "<a href='#/profiles/" + this.id + "'>" + 
+      this.escape('name') +
+      '</a>';
+  },
+
   sexSymbol: function () {
     switch (this.get('sex')) {
       case 0: return '?';

@@ -4,12 +4,12 @@ AnyGram.Views.SubmissionShow = Backbone.View.extend({
   },
 
   template: JST['submission/show'],
-  className: 'container-fluid',
+  className: 'container-fluid submission',
 
   render: function () {
     var content = this.template({ 
       submission: this.model,
-      profile: this.model.profile()
+      submitter: this.model.submitter()
     });
     this.$el.html(content);
 

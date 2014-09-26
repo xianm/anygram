@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
       .order('submissions.created_at DESC')
       .uniq
 
-    @submissions.includes(:profile)
+    @submissions.includes(:submitter, :favorers)
   end
 
   def favorited?(submission)

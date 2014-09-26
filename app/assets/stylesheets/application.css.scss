@@ -50,3 +50,15 @@ html, body, #splash {
 .thumb-row {
   margin-bottom: 20px;
 }
+
+.submission {
+  margin-bottom: 100px;
+}
+
+.submission:last-of-type {
+  margin-bottom: 20px;
+}
+
+.submission-image {
+  padding: 0px;
+}
