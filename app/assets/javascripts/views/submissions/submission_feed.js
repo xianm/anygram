@@ -10,6 +10,7 @@ AnyGram.Views.SubmissionFeed = Backbone.View.extend({
     var content = this.template({
       submission: this.model
     });
+
     this.$el.html(content);
     return this;
   }

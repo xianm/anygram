@@ -19,7 +19,7 @@ AnyGram.Views.ProfileShow = Backbone.CompositeView.extend({
     this.attachSubviews();
 
     var $followBtn = this.$el.find('#follow-btn');
-    $followBtn.followToggle( {
+    $followBtn.followToggle({
       following: this.model.get('following'),
       userId: this.model.get('user_id')
     }); 

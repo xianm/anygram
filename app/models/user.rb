@@ -60,6 +60,10 @@ class User < ActiveRecord::Base
     @submissions.includes(:profile)
   end
 
+  def favorited?(submission)
+    favorited.include?(submission)
+  end
+
   def favorite!(submission_id)
     self.favorites.create!(submission_id: submission_id)
   end
