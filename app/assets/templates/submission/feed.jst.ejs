@@ -1,5 +1,5 @@
 <div class='row'>
-  <div class='col-sm-2 col-sm-offset-2'>
+  <div class='col-sm-3 col-sm-offset-2'>
     <div class='row'>
       <div class='col-sm-12 col-xs-6'>
         <a href='#/profiles/<%= submitter.id %>'>
@@ -7,18 +7,16 @@
         </a>
       </div>
       <div class='col-sm-12 col-xs-6'>
-        <%= submission.get('time_ago') %>
+        posted <%= submission.get('time_ago') %> ago
       </div>
     </div>
   </div>
 
-  <div class='col-sm-8 submission-image'>
-    <img class='img-thumbnail favoritable' src="<%= submission.escape('url') %>"
-      data-favorited="<%= submission.get('favorited') %>"
-      data-id="<%= submission.id %>">
+  <div class='col-sm-6 submission-image'>
+    <img class='img-thumbnail favoritable' src="<%= submission.escape('url') %>">
 
     <div class='row'>
-      <div class='col-sm-8'>
+      <div class='col-sm-12'>
         <% var preview = favorers.slice(0, 3); %>
         <%= submission.favoritesStr(preview) %>
       </div>

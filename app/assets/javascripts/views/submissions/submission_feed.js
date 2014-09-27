@@ -20,6 +20,7 @@ AnyGram.Views.SubmissionFeed = Backbone.View.extend({
 
     $favoritable.favoriteToggle({
       favorited: this.model.get('favorited'),
+      submissionId: this.model.id,
 
       onEventEnd: function ($el, favorited) {
         var submission = this.model;
