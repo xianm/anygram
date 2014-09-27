@@ -17,7 +17,7 @@ AnyGram.Models.Submission = Backbone.Model.extend({
       if (remainder !== 1) html += 's';
     }
 
-    html += preview.length === 1 ? ' likes' : ' like' + ' this.';
+    html += preview.length === 1 ? ' likes this.' : ' like this.';
 
     return html;
   },

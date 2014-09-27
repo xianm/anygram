@@ -16,5 +16,11 @@
     <img class='img-thumbnail favoritable' src="<%= submission.escape('url') %>"
       data-favorited="<%= submission.get('favorited') %>"
       data-id="<%= submission.id %>">
+    <div class='row'>
+      <div class='col-sm-8'>
+        <% var preview = favorers.slice(0, 3); %>
+        <%= submission.favoritesStr(preview) %>
+      </div>
+    </div>
   </div>
 </div>

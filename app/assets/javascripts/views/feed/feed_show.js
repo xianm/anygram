@@ -14,19 +14,6 @@ AnyGram.Views.FeedShow = Backbone.CompositeView.extend({
     this.$el.html(content);
     this.attachSubviews();
 
-    var $favoritable = this.$el.find('.favoritable');
-
-    $favoritable.favoriteToggle({
-      onEventBegin: function ($el, favorited) {
-        $el.removeClass('animated tada shake');
-      },
-
-      onEventEnd: function ($el, favorited) {
-        $el.addClass('animated');
-        $el.addClass(favorited ? 'tada' : 'shake');
-      }
-    });
-
     return this;
   },
 
