@@ -20,6 +20,10 @@
       <button class='btn btn-default' id='follow-btn'></button>
     <% } %>
   </p>
+
+  <p><%= profile.submissions().length %> posts</p>
+  <p><%= profile.get('followers_count') %> followers</p>
+  <p><%= profile.get('followed_count') %> following</p>
 </div>
 
 <div id='thumbnails' class='row'></div>
