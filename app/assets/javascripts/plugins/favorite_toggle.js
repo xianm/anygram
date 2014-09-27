@@ -22,7 +22,7 @@ $.FavoriteToggle.prototype.handleEvent = function (event) {
     dataType: 'json',
     success: function () {
       this.favorited = !this.favorited;
-      setTimeout(this.bindEvent.bind(this), 1000);
+      setTimeout(this.bindEvent.bind(this), 250);
 
       if (this.onEventEnd) this.onEventEnd(this.$el, this.favorited);
     }.bind(this),

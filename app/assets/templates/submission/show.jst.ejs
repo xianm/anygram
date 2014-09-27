@@ -13,9 +13,11 @@
   </div>
 
   <div class='col-sm-6'>
-    <img class='img-thumbnail favoritable' src="<%= submission.escape('url') %>"
-      data-favorited="<%= submission.get('favorited') %>"
-      data-id="<%= submission.id %>">
+    <div class='favoritable favoritable-image'>
+      <div class='heart-overlay animated fadeOut' hidden></div>
+      <div class='heart-break-overlay' hidden></div>
+      <img class='img-thumbnail' src="<%= submission.escape('url') %>">
+    </div>
 
     <div class='row'>
       <div class='col-sm-12'>

@@ -19,6 +19,7 @@ AnyGram.Views.SubmissionShow = Backbone.View.extend({
     var $favoritable = this.$el.find('.favoritable');
 
     $favoritable.favoriteToggle({
+      submissionId: this.model.id,
       favorited: this.model.get('favorited'),
 
       onEventEnd: function ($el, favorited) {
@@ -32,8 +33,9 @@ AnyGram.Views.SubmissionShow = Backbone.View.extend({
         }
 
         $el = this.$el.find('.favoritable');
-        $el.addClass('animated');
-        $el.addClass(favorited ? 'tada' : 'shake');
+        var heartSel = favorited ? '.heart-overlay' : '.heart-break-overlay';
+        $heart = this.$el.find(heartSel);
+        $heart.show().addClass('animated fadeOut');
       }.bind(this)
     });
 

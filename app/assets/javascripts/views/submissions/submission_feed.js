@@ -33,8 +33,9 @@ AnyGram.Views.SubmissionFeed = Backbone.View.extend({
         }
 
         $el = this.$el.find('.favoritable');
-        $el.addClass('animated');
-        $el.addClass(favorited ? 'tada' : 'shake');
+        var heartSel = favorited ? '.heart-overlay' : '.heart-break-overlay';
+        $heart = this.$el.find(heartSel);
+        $heart.show().addClass('animated fadeOut');
       }.bind(this)
     });
 
