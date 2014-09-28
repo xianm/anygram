@@ -7,7 +7,8 @@ AnyGram.Views.FeedShow = Backbone.CompositeView.extend({
   },
 
   template: JST['feed/show'],
-  className: 'container-fluid',
+  tagName: 'section',
+  id: 'feed',
 
   render: function () {
     var content = this.template();
@@ -21,6 +22,6 @@ AnyGram.Views.FeedShow = Backbone.CompositeView.extend({
     var view = new AnyGram.Views.SubmissionFeed({
       model: submission
     });
-    this.addSubview('#submissions', view);
+    this.addSubview('#feed-items', view);
   }
 });

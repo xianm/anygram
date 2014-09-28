@@ -1,29 +1,44 @@
-<div class='row'>
-  <div class='col-sm-3 col-sm-offset-2'>
-    <div class='row'>
-      <div class='col-sm-12 col-xs-6'>
-        <a href='#/profiles/<%= submitter.id %>'>
-          <%= submitter.escape('name') %>
-        </a>
-      </div>
-      <div class='col-sm-12 col-xs-6'>
-        posted <%= submission.get('time_ago') %> ago
-      </div>
+<aside class='feed-item-sidebar-container'>
+  <div class='feed-item-sidebar'>
+    <div class='feed-item-sidebar-text'>
+      <span class='feed-item-name'>
+        <%= submitter.escape('name') %>
+      </span>
+      <span class='feed-item-timeago'>
+        <%= submission.get('time_ago') %> ago
+      </span>
     </div>
+    <img class='feed-item-avatar' src='http://placehold.it/40x40'>
   </div>
+</aside>
 
-  <div class='col-sm-6'>
+<div class='feed-item-center-container'>
+  <div class='feed-item-center'>
     <div class='favoritable favoritable-image'>
-      <div class='heart-overlay animated fadeOut' hidden></div>
-      <div class='heart-break-overlay' hidden></div>
-      <img class='img-thumbnail' src="<%= submission.escape('url') %>">
+      <img class='feed-item-img' src="<%= submission.escape('url') %>">
     </div>
 
-    <div class='row'>
-      <div class='col-sm-12'>
+    <div class='feed-item-favorite-bar'>
+      <a class='feed-item-fav-btn'></a>
+      <a class='feed-item-actions-btn'></a>
+      <span class='feed-item-favorites'>
         <% var preview = favorers.slice(0, 3); %>
         <%= submission.favoritesStr(preview) %>
-      </div>
+      </span>
     </div>
+
+    <% if (false) { %>
+      <div class='feed-item-caption-container'>
+        <div class='feed-item-avatar-sm-container'>
+          <img class='feed-item-avatar-sm' src='http://placehold.it/26x26'>
+        </div>
+
+          <span class='feed-item-caption'>
+            <a href='#'>User Name</a>
+            This is a generic caption that doesn't really say anything 
+            about the image. #swag
+          </span>
+      </div>
+    <% } %>
   </div>
 </div>

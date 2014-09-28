@@ -5,7 +5,8 @@ AnyGram.Views.SubmissionShow = Backbone.View.extend({
   },
 
   template: JST['submission/show'],
-  className: 'container-fluid submission',
+  className: 'feed-item',
+  tagName: 'article',
 
   render: function () {
     var content = this.template({
@@ -33,9 +34,11 @@ AnyGram.Views.SubmissionShow = Backbone.View.extend({
         }
 
         $el = this.$el.find('.favoritable');
-        var heartSel = favorited ? '.heart-overlay' : '.heart-break-overlay';
-        $heart = this.$el.find(heartSel);
-        $heart.show().addClass('animated fadeOut');
+
+        $heart = $('<div>');
+        var heartType = favorited ? 'heart-overlay' : 'heart-break-overlay';
+        $el.prepend($heart);
+        $heart.addClass(heartType + ' animated fadeOut');
       }.bind(this)
     });
 
