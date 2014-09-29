@@ -1,6 +1,6 @@
 class Favorite < ActiveRecord::Base
-  validates :user, :submission, presence: true
-  validates :submission, uniqueness: { scope: :user }
+  validates_presence_of :user, :submission
+  validates_uniqueness_of :submission, scope: :user
 
   belongs_to :submission
   belongs_to :user

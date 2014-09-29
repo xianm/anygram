@@ -1,9 +1,9 @@
 class Profile < ActiveRecord::Base
   SEX_OPTIONS = { unknown: 0, male: 1, female: 2 }
 
-  validates :name, :display_name, :sex, presence: true
-  validates :name, uniqueness: true
-  validates :sex, inclusion: { in: SEX_OPTIONS.values }
+  validates_presence_of :name, :display_name, :sex
+  validates_uniqueness_of :name, case_sensitive: false
+  validates_inclusion_of :sex, in: SEX_OPTIONS.values
   validate :name, :valid_name_format
 
   belongs_to :user
