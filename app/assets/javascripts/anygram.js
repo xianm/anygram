@@ -16,6 +16,7 @@ window.AnyGram = {
     // This gets called before every route action is called
     Backbone.history.on('route', function () {
       AnyGram.clearAlert();
+      window.scrollTo(0, 0);
     });
     
     if (!Backbone.history.start()) {
