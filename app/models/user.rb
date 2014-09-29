@@ -1,17 +1,19 @@
 class User < ActiveRecord::Base
-  validates :email, :password_digest, :session_token, :profile, presence: true
-  validates :email, :session_token, uniqueness: true
-  validates :password, length: { minimum: 6 }, allow_nil: true
+  validates_presence_of :email, :password_digest, :session_token, :profile
+  validates_uniqueness_of :email, case_sensitive: false
+  validates_uniqueness_of :session_token, uniqueness: true
+  validates_length_of :password, minimum: 6, allow_nil: true
 
   has_one :profile, autosave: true, dependent: :destroy
   has_many :submissions, dependent: :destroy
 
-  has_many :in_follows, class_name: 'Follow'
-  has_many :out_follows, class_name: 'Follow', foreign_key: 'follower_id'
+  has_many :in_follows, class_name: 'Follow', dependent: :destroy
+  has_many :out_follows, class_name: 'Follow', foreign_key: 'follower_id',
+    dependent: :destroy
   has_many :followers, through: :in_follows, source: :follower
   has_many :followed, through: :out_follows, source: :user
 
-  has_many :favorites
+  has_many :favorites, dependent: :destroy
   has_many :favorited, through: :favorites, source: :submission
   
   attr_reader :password
@@ -19,7 +21,7 @@ class User < ActiveRecord::Base
   after_initialize :ensure_session_token
 
   def self.find_by_credentials(email, password)
-    user = User.find_by(email: email)
+    user = User.where('LOWER(email) = ?', email.downcase).first
     (user.nil? || !user.is_password?(password)) ? nil : user
   end
 
