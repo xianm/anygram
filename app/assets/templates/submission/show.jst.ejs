@@ -58,9 +58,7 @@
             </div>
 
             <span class='feed-item-comment-content'>
-              <a href='#/profiles/<%= comment.get('profile_id') %>'>
-                <%= comment.get('profile_name') %>
-              </a>
+              <a href='#/profiles/<%= comment.get('profile_id') %>'><%= comment.get('profile_name') %></a>
               <%= comment.escape('content') %>
             </span>
           </div>
