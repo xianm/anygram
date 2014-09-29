@@ -34,6 +34,12 @@ AnyGram.Models.Submission = Backbone.Model.extend({
     return this._favorers;
   },
 
+  comments: function () {
+    this._comments = this._comments ||
+      new AnyGram.Collections.Comments();
+    return this._comments;
+  },
+
   parse: function (resp, options) {
     if (resp.submitter) {
       this.submitter().set(resp.submitter, { parse: true });
@@ -42,6 +48,11 @@ AnyGram.Models.Submission = Backbone.Model.extend({
 
     if (resp.favorers) {
       this.favorers().set(resp.favorers, { parse: true });
+      delete resp.favorers;
+    }
+
+    if (resp.comments) {
+      this.comments().set(resp.comments, { parse: true });
       delete resp.favorers;
     }
 

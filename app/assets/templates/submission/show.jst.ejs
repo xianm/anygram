@@ -45,6 +45,27 @@
             <%= submission.escape('caption') %>
           </span>
       </div>
-      <% } %>
+    <% } %>
+
+    <% if (comments) { %>
+      <% comments.each(function (comment) { %>
+        <div class='feed-item-comments-container'>
+          <div class='feed-item-comment'>
+            <div class='feed-item-avatar-sm-container'>
+              <a href='#/profiles/<%= comment.get('profile_id') %>'>
+                <img class='feed-item-comment-avatar' src='http://placehold.it/24x24'>
+              </a>
+            </div>
+
+            <span class='feed-item-comment-content'>
+              <a href='#/profiles/<%= comment.get('profile_id') %>'>
+                <%= comment.get('profile_name') %>
+              </a>
+              <%= comment.escape('content') %>
+            </span>
+          </div>
+        </div>
+      <% }); %>
+    <% } %>
   </div>
 </div>

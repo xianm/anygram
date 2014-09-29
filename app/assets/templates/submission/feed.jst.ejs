@@ -35,16 +35,45 @@
     </div>
 
     <% if (submission.get('caption')) { %>
-      <div class='feed-item-caption-container'>
-        <div class='feed-item-avatar-sm-container'>
-          <img class='feed-item-avatar-sm' src='http://placehold.it/26x26'>
-        </div>
-
-          <span class='feed-item-caption'>
-            <%= submitter.linkTo() %>
-            <%= submission.escape('caption') %>
-          </span>
+    <div class='feed-item-caption-container'>
+      <div class='feed-item-avatar-sm-container'>
+        <img class='feed-item-avatar-sm' src='http://placehold.it/26x26'>
       </div>
-      <% } %>
+
+        <span class='feed-item-caption'>
+          <%= submitter.linkTo() %>
+          <%= submission.escape('caption') %>
+        </span>
+    </div>
+    <% } %>
+
+    <% if (submission.get('remaining_comments_count')) { %>
+      <div class='feed-item-comments-container'>
+        <div class='feed-item-comment'>
+          <span class='feed-item-comment-more'>
+            <a href='#/view/<%= submission.id %>'>
+              <%= submission.get('remaining_comments_count') %> more comments
+            </a>
+          </span>
+        </div>
+      </div>
+    <% } %>
+    
+    <% if (comments) { %>
+      <% comments.each(function (comment) { %>
+        <div class='feed-item-comments-container'>
+          <div class='feed-item-comment'>
+            <div class='feed-item-avatar-sm-container'>
+              <img class='feed-item-comment-avatar' src='http://placehold.it/24x24'>
+            </div>
+
+            <span class='feed-item-comment-content'>
+              <a href='#'>User Name</a>
+              <%= comment.escape('content') %>
+            </span>
+          </div>
+        </div>
+      <% }); %>
+    <% } %>
   </div>
 </div>

@@ -2,6 +2,7 @@ AnyGram.Views.SubmissionShow = Backbone.View.extend({
   initialize: function () {
     this.listenTo(this.model, 'sync', this.render);
     this.listenTo(this.model.favorers(), 'add remove', this.render);
+    this.listenTo(this.model.comments(), 'add remove', this.render);
   },
 
   template: JST['submission/show'],
@@ -12,7 +13,8 @@ AnyGram.Views.SubmissionShow = Backbone.View.extend({
     var content = this.template({
       submission: this.model,
       submitter: this.model.submitter(),
-      favorers: this.model.favorers()
+      favorers: this.model.favorers(),
+      comments: this.model.comments()
     });
     
     this.$el.html(content);
