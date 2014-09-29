@@ -1,7 +1,7 @@
 class Api::SubmissionsController < ApplicationController
   before_action :require_authentication
 
-  wrap_parameters :submission, include: [:source]
+  wrap_parameters :submission, include: [:caption, :source]
 
   def index
     @submissions = Submission.all
@@ -29,6 +29,6 @@ class Api::SubmissionsController < ApplicationController
   private
 
   def submission_params
-    params.require(:submission).permit(:source)
+    params.require(:submission).permit(:caption, :source)
   end
 end

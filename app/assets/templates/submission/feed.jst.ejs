@@ -34,6 +34,7 @@
       </span>
     </div>
 
+    <% if (submission.get('caption')) { %>
       <div class='feed-item-caption-container'>
         <div class='feed-item-avatar-sm-container'>
           <img class='feed-item-avatar-sm' src='http://placehold.it/26x26'>
@@ -41,8 +42,9 @@
 
           <span class='feed-item-caption'>
             <%= submitter.linkTo() %>
-            Image captions coming soon!
+            <%= submission.escape('caption') %>
           </span>
       </div>
+      <% } %>
   </div>
 </div>

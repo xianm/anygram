@@ -1,4 +1,4 @@
-json.(submission, :id, :user_id, :created_at)
+json.(submission, :id, :user_id, :created_at, :caption)
 
 json.time_ago time_ago_in_words(submission.created_at)
 json.url submission.source.url

@@ -1,12 +1,18 @@
 <div id='submission-wrapper'>
-  <form role='form' action='#' enctype='multipart/form-data'>
+  <form id='upload-form' role='form' action='#' enctype='multipart/form-data'>
     <input id='source' type='file' class='form-control input-file'>
   </form>
 
   <div id='editor-wrapper' hidden>
     <canvas id='editor' width='512' height='512'></canvas>
 
-    <button id='upload' class='btn btn-default'>Upload</button>
-    <button id='cancel' class='btn btn-default pull-right'>Cancel</button>
+    <form role='form' action='#"'>
+      <div class='form-group'>
+        <textarea id='caption' name='caption' placeholder='Write a caption...' 
+          rows='4'></textarea>
+      </div>
+      <button id='upload' class='btn btn-default'>Upload</button>
+      <button id='cancel' class='btn btn-default pull-right'>Cancel</button>
+    </form>
   </div>
 </div>
