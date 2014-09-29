@@ -34,7 +34,7 @@
   text-align: center;
 }
 
-#home-wrapper, #nav-wrapper {
+#home-wrapper, #nav-wrapper, #search-wrapper {
   height: 100%;
 
   position: absolute;
@@ -52,6 +52,10 @@
 #nav-wrapper {
   right: 0;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#search-wrapper {
+  top: 5px; left: 54px;
 }
 
 #home-btn, #nav-btn {
@@ -99,4 +103,64 @@
   height: 100%;
 
   padding: 10px;
+}
+
+#search-form {
+  width: 125px;
+}
+
+#search-bar, .input-group-addon {
+  opacity: 0.5;
+  transition: width 500ms, opacity 500ms;
+}
+
+#search-bar:focus, #search-bar:focus + .input-group-addon {
+  opacity: 1;
+
+  border-bottom-left-radius: 0;
+}
+
+#search-bar:focus {
+  width: 250px;
+}
+
+#search-results {
+  position: relative;
+  top: 0px;
+
+  width: 250px;
+
+  text-align: left;
+  color: black;
+}
+
+#search-results > li {
+  background: white;
+  cursor: pointer;
+
+  opacity: 0.9;
+  transition: background 300ms;
+
+  padding: 10px;
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-left: 1px solid silver;
+  border-right: 1px solid silver;
+}
+
+#search-results > li:hover {
+  background: #F5F5F5;
+}
+
+#search-results > li:active {
+  background: #EFEFEF;
+}
+
+#search-results > li:first-of-type {
+  border-top-right-radius: 7px;
+}
+
+#search-results > li:last-of-type {
+  border-bottom: 1px solid silver;
+  border-radius: 0 0 7px 7px;
 }

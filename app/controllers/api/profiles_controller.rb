@@ -17,6 +17,25 @@ class Api::ProfilesController < ApplicationController
     end
   end
 
+  def search
+    @profiles = Profile.none
+
+    q = params[:query].downcase
+
+    if q && q.length > 0
+      if (q.start_with?('@')) # user search by @name
+        if (q.length > 1)
+          @profiles = Profile.where('LOWER(name) ~ :q', q: q[1..-1]).limit(10)
+        end
+      else
+        @profiles = Profile.where('LOWER(name) ~ :q OR LOWER(display_name) ~ :q',
+                                q: q).limit(10)
+      end
+    end
+
+    render :search
+  end
+
   private
 
   def profile_params

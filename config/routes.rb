@@ -11,6 +11,7 @@ Anygram::Application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :profiles, only: [:show, :update] do
       resource :follow, only: [:create, :destroy]
+      get 'search', on: :collection
     end
     resources :submissions, only: [:create, :show] do
       resource :favorite, only: [:create, :destroy]

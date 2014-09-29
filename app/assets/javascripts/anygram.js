@@ -6,18 +6,25 @@ window.AnyGram = {
 
   initialize: function() {
     AnyGram.currentUser = AnyGram.users.getOrFetch(AnyGram.currentUserId, {
-      success: function () {
-        var router = new AnyGram.Routers.Router({ $rootEl: $('#content') });
+      success: AnyGram.start.bind(this)
+    });
+  },
 
-        // This gets called before every route action is called
-        Backbone.history.on('route', function () {
-          AnyGram.clearAlert();
-        });
-        
-        if (!Backbone.history.start()) {
-          AnyGram.notFound();
-        }
-      }
+  start: function () {
+    var router = new AnyGram.Routers.Router({ $rootEl: $('#content') });
+
+    // This gets called before every route action is called
+    Backbone.history.on('route', function () {
+      AnyGram.clearAlert();
+    });
+    
+    if (!Backbone.history.start()) {
+      AnyGram.notFound();
+    }
+
+    $('#search-form').searchable({
+      searchBar: '#search-bar',
+      results: '#search-results'
     });
   },
 

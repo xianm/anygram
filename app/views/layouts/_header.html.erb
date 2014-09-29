@@ -13,5 +13,18 @@
     <div id='nav-wrapper'>
       <%= render 'layouts/nav' %>
     </div>
+
+    <div id='search-wrapper'>
+      <form id='search-form' action='#'>
+        <div class='input-group'>
+          <input id='search-bar' type='text' class='form-control' placeholder='Search...' />
+          <span class='input-group-addon'>
+            <span class='glyphicon glyphicon-search'></span>
+          </span>
+        </div>
+      </form>
+      <ul id='search-results'>
+      </ul>
+    </div>
   </div>
 </header>
