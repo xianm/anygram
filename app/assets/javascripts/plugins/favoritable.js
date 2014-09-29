@@ -2,46 +2,41 @@ $.Favoritable = function (el, model, options) {
   this.$el = $(el);
   this.model = model;
   this.event = options.event || 'click';
-  this.onEventEnd = options.onEventEnd;
+  this.onEventBegin = options.onEventBegin;
 
-  this.bindEvent();
-};
-
-$.Favoritable.prototype.bindEvent = function () {
-  this.$el.one(this.event, this.handleEvent.bind(this));
+  this.$el.on(this.event, this.handleEvent.bind(this));
 };
 
 $.Favoritable.prototype.handleEvent = function (event) {
   event.preventDefault();
 
-  AnyGram.clearAlert();
-
   var favorited = this.model.get('favorited');
+
+  // Set the models state to what we **hope** it will succeed to, and revert it
+  // only on failure. This is so we can handle eventBegin to animate things
+  // quickly, to make it look instantaneous to the user.
+  this.setFavorited(!favorited);
+
+  if (this.onEventBegin) this.onEventBegin(!favorited);
 
   $.ajax({
     url: '/api/submissions/' + this.model.id + '/favorite',
     method: favorited ? 'DELETE' : 'POST',
     dataType: 'json',
-    success: function () {
-      favorited = !favorited;
-      this.model.set({ favorited: favorited });
-
-      if (favorited) {
-        this.model.favorers().add(AnyGram.currentUser.profile());
-      } else {
-        this.model.favorers().remove(AnyGram.currentUser.profile());
-      }
-
-      setTimeout(this.bindEvent.bind(this), 200);
-
-      if (this.onEventEnd) this.onEventEnd(favorited);
-    }.bind(this),
-
     error: function () {
-      AnyGram.alert('Something went wrong!');
-      this.bindEvent();
+      this.setFavorited(favorited);
     }.bind(this)
   });
+};
+
+$.Favoritable.prototype.setFavorited = function (favorited) {
+  this.model.set({ favorited: favorited });
+
+  if (favorited) {
+    this.model.favorers().add(AnyGram.currentUser.profile());
+  } else {
+    this.model.favorers().remove(AnyGram.currentUser.profile());
+  }
 };
 
 $.fn.favoritable = function (model, options) {

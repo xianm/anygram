@@ -20,12 +20,12 @@ AnyGram.Views.SubmissionShow = Backbone.View.extend({
     var $favImg = this.$el.find('.fav-img');
     $favImg.favoritable(this.model, {
       event: 'dblclick',
-      onEventEnd: this.handleFavoritableResponse.bind(this)
+      onEventBegin: this.beginFavoriting.bind(this),
     });
 
     var $favBtn = this.$el.find('.fav-btn');
     $favBtn.favoritable(this.model, { 
-      onEventEnd: this.handleFavoritableResponse.bind(this)
+      onEventBegin: this.beginFavoriting.bind(this),
     });
 
     if (this.model.get('favorited')) {
@@ -35,7 +35,7 @@ AnyGram.Views.SubmissionShow = Backbone.View.extend({
     return this;
   },
 
-  handleFavoritableResponse: function (favorited) {
+  beginFavoriting: function (favorited) {
     var $favImg = this.$el.find('.fav-img');
 
     var heartType = favorited ? 'heart-overlay' : 'heart-break-overlay';
