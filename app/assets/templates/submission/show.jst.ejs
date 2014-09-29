@@ -2,7 +2,7 @@
   <div class='feed-item-sidebar'>
     <div class='feed-item-sidebar-text'>
       <span class='feed-item-name'>
-        <%= submitter.escape('name') %>
+        <%= submitter.linkTo() %>
       </span>
       <span class='feed-item-timeago'>
         <%= submission.get('time_ago') %> ago
@@ -14,31 +14,35 @@
 
 <div class='feed-item-center-container'>
   <div class='feed-item-center'>
-    <div class='favoritable favoritable-image'>
+    <div class='fav-img'>
       <img class='feed-item-img' src="<%= submission.escape('url') %>">
     </div>
 
     <div class='feed-item-favorite-bar'>
-      <a class='feed-item-fav-btn'></a>
-      <a class='feed-item-actions-btn'></a>
+      <div class='feed-item-fav-btn'>
+        <a class='fav-btn glyphicon glyphicon-heart'></a>
+      </div>
+
+      <div class='feed-item-actions-btn'>
+        <a class='actions-btn' href='#/view/<%= submission.id %>'>
+          ...
+        </a>
+      </div>
       <span class='feed-item-favorites'>
         <% var preview = favorers.slice(0, 3); %>
         <%= submission.favoritesStr(preview) %>
       </span>
     </div>
 
-    <% if (false) { %>
       <div class='feed-item-caption-container'>
         <div class='feed-item-avatar-sm-container'>
           <img class='feed-item-avatar-sm' src='http://placehold.it/26x26'>
         </div>
 
           <span class='feed-item-caption'>
-            <a href='#'>User Name</a>
-            This is a generic caption that doesn't really say anything 
-            about the image. #swag
+            <%= submitter.linkTo() %>
+            Image captions coming soon!
           </span>
       </div>
-    <% } %>
   </div>
 </div>

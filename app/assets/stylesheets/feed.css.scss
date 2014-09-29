@@ -76,6 +76,8 @@
 }
 
 .feed-item-img {
+  cursor: pointer;
+
   width: 100%;
   height: auto;
 
@@ -93,7 +95,9 @@
 }
 
 .feed-item-fav-btn, .feed-item-actions-btn {
-  display: block;
+  display: table;
+  
+  cursor: pointer;
 
   width: 40px;
   height: 100%;
@@ -104,6 +108,34 @@
 .feed-item-fav-btn {
   float: left;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.fav-btn, .actions-btn {
+  display: table-cell;
+
+  vertical-align: middle;
+  text-align: center;
+
+  color: silver;
+  font-size: 1.3em;
+
+  transition: color 200ms, background-color 200ms;
+}
+
+.fav-btn:hover, .actions-btn:hover {
+  color: gray;
+
+  text-decoration: none;
+
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.fav-btn:active, .actions-btn:active {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.favorited {
+  color: rgb(225, 0, 0) !important;
 }
 
 .feed-item-actions-btn {
@@ -132,6 +164,8 @@
   background: white;
 
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
+
+  padding-bottom: 4px;
 }
 
 .feed-item-caption {

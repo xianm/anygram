@@ -14,13 +14,20 @@
 
 <div class='feed-item-center-container'>
   <div class='feed-item-center'>
-    <div class='favoritable favoritable-image'>
+    <div class='fav-img'>
       <img class='feed-item-img' src="<%= submission.escape('url') %>">
     </div>
 
     <div class='feed-item-favorite-bar'>
-      <a class='feed-item-fav-btn'></a>
-      <a class='feed-item-actions-btn'></a>
+      <div class='feed-item-fav-btn'>
+        <a class='fav-btn glyphicon glyphicon-heart'></a>
+      </div>
+
+      <div class='feed-item-actions-btn'>
+        <a class='actions-btn' href='#/view/<%= submission.id %>'>
+          ...
+        </a>
+      </div>
       <span class='feed-item-favorites'>
         <% var preview = favorers.slice(0, 3); %>
         <%= submission.favoritesStr(preview) %>

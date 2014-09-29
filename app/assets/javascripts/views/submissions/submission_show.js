@@ -17,31 +17,38 @@ AnyGram.Views.SubmissionShow = Backbone.View.extend({
     
     this.$el.html(content);
 
-    var $favoritable = this.$el.find('.favoritable');
-
-    $favoritable.favoriteToggle({
-      submissionId: this.model.id,
-      favorited: this.model.get('favorited'),
-
-      onEventEnd: function ($el, favorited) {
-        var submission = this.model;
-        this.model.set({ favorited: favorited });
-
-        if (favorited) {
-          submission.favorers().add(AnyGram.currentUser.profile());
-        } else {
-          submission.favorers().remove(AnyGram.currentUser.profile());
-        }
-
-        $el = this.$el.find('.favoritable');
-
-        $heart = $('<div>');
-        var heartType = favorited ? 'heart-overlay' : 'heart-break-overlay';
-        $el.prepend($heart);
-        $heart.addClass(heartType + ' animated fadeOut');
-      }.bind(this)
+    var $favImg = this.$el.find('.fav-img');
+    $favImg.favoritable(this.model, {
+      event: 'dblclick',
+      onEventEnd: this.handleFavoritableResponse.bind(this)
     });
 
+    var $favBtn = this.$el.find('.fav-btn');
+    $favBtn.favoritable(this.model, { 
+      onEventEnd: this.handleFavoritableResponse.bind(this)
+    });
+
+    if (this.model.get('favorited')) {
+      $favBtn.addClass('favorited');
+    }
+
     return this;
+  },
+
+  handleFavoritableResponse: function (favorited) {
+    var $favImg = this.$el.find('.fav-img');
+
+    var heartType = favorited ? 'heart-overlay' : 'heart-break-overlay';
+    var $heart = $('<div>').addClass(heartType + ' animated fadeOut');
+
+    $favImg.prepend($heart);
+
+    var $favBtn = this.$el.find('.fav-btn');
+
+    if (favorited) {
+      $favBtn.addClass('favorited');
+    } else {
+      $favBtn.removeClass('favorited');
+    }
   }
 });

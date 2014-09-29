@@ -10,7 +10,7 @@
 
   color: white;
 
-  z-index: 9;
+  z-index: 1000;
 }
 
 #top-bar-wrapper {
@@ -69,6 +69,10 @@
   cursor: pointer;
 
   background: rgba(255, 255, 255, 0.1);
+}
+
+#home-btn:active, #nav-btn:active {
+  background: rgba(0, 0, 0, 0.1);
 }
 
 #home-btn {
