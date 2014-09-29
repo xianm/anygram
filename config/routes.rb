@@ -10,12 +10,11 @@ Anygram::Application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     resources :profiles, only: [:show, :update] do
-      post   'follow', to: 'follows#create'
-      delete 'follow', to: 'follows#destroy'
+      resource :follow, only: [:create, :destroy]
     end
     resources :submissions, only: [:create, :show] do
-      post   'favorite', to: 'favorites#create'
-      delete 'favorite', to: 'favorites#destroy'
+      resource :favorite, only: [:create, :destroy]
+      resource :comment, only: [:create]
     end
     resource :feed, only: [:show]
   end

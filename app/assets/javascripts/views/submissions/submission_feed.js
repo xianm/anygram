@@ -34,6 +34,9 @@ AnyGram.Views.SubmissionFeed = Backbone.View.extend({
       $favBtn.addClass('favorited');
     }
 
+    var $newComment = this.$el.find('.new-comment-form');
+    $newComment.commentable(this.model);
+
     return this;
   },
 

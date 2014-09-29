@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
     self.favorites.find_by(submission_id: submission_id).destroy!
   end
 
-  def comment_on(submission, content)
-    self.comments.create({ submission: submission, content: content })
+  def comment_on(submission_id, content)
+    self.comments.create!({ submission_id: submission_id, content: content })
   end
 end
