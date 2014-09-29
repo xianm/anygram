@@ -1,7 +1,7 @@
 $.FollowToggle = function (el, options) {
   this.$el = $(el);
   this.following = options.following;
-  this.userId = options.userId;
+  this.id = options.id;
 
   this.$el.on('click', this.handleClick.bind(this));
 
@@ -17,7 +17,7 @@ $.FollowToggle.prototype.handleClick = function (event) {
   this.setButtonDisabled(true, text);
 
   $.ajax({
-    url: '/api/profiles/' + this.userId + '/follow',
+    url: '/api/profiles/' + this.id + '/follow',
     method: this.following ? 'DELETE' : 'POST',
     dataType: 'json',
     success: function () {
