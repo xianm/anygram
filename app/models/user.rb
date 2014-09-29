@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
 
   has_many :favorites, dependent: :destroy
   has_many :favorited, through: :favorites, source: :submission
+
+  has_many :comments, dependent: :destroy
   
   attr_reader :password
 
@@ -72,5 +74,9 @@ class User < ActiveRecord::Base
 
   def unfavorite!(submission_id)
     self.favorites.find_by(submission_id: submission_id).destroy!
+  end
+
+  def comment_on(submission, content)
+    self.comments.create({ submission: submission, content: content })
   end
 end
