@@ -131,7 +131,7 @@
   width: 250px;
 
   text-align: left;
-  color: black;
+  color: gray;
 }
 
 #search-results > li {
@@ -139,7 +139,7 @@
   cursor: pointer;
 
   opacity: 0.9;
-  transition: background 300ms;
+  transition: background 300ms, color 300ms;
 
   padding: 10px;
 
@@ -148,8 +148,10 @@
   border-right: 1px solid silver;
 }
 
-#search-results > li:hover {
-  background: #F5F5F5;
+#search-results > li:hover, .search-results-selected {
+  color: black;
+  background: #F5F5F5 !important;
+  font-weight: bold;
 }
 
 #search-results > li:active {
