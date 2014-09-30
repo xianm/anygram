@@ -16,6 +16,7 @@
 //= require underscore
 //= require backbone
 //= require bootstrap
+//= require caman
 //= require anygram
 //= require_tree ../templates
 //= require_tree ./patches

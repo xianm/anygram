@@ -1,0 +1,109 @@
+<div id='editor-main'>
+  <canvas id='editor'></canvas>
+
+  <form id='editor-form' role='form' action='#"'>
+    <textarea id='caption' name='caption' placeholder='Write a caption...' 
+      rows='2'></textarea>
+    <button id='upload' class='btn btn-default'>Upload</button>
+    <button id='cancel' class='btn btn-default pull-right'>Cancel</button>
+  </form>
+</div>
+
+<div id='editor-controls'>
+  <ul class='nav nav-tabs' role='tablist'>
+    <li class='active'>
+      <a href='#adjustments' role='tab' data-toggle='tab'>Adjustments</a>
+    </li>
+    <li>
+      <a href='#filters' role='tab' data-toggle='tab'>Filters</a>
+    </li>
+  </ul>
+
+  <div class='tab-content'>
+    <div id='adjustments' class='tab-pane active'>
+      <div class='adjustment'>
+        <div class='adjustment-label'>Brightness</div>
+        <div class='adjustment-slider'>
+          <input type='range' name='brightness' min='-100' max='100' step='0.01'
+            value='0' data-default=0'>
+        </div>
+      </div>
+      <div class='adjustment'>
+        <div class='adjustment-label'>Saturation</div>
+        <div class='adjustment-slider'>
+          <input type='range' name='saturation' min='-100' max='100' step='0.01'
+            value='0' data-default=0'>
+        </div>
+      </div>
+      <div class='adjustment'>
+        <div class='adjustment-label'>Exposure</div>
+        <div class='adjustment-slider'>
+          <input type='range' name='exposure' min='-100' max='100' step='0.01'
+            value='0' data-default=0'>
+        </div>
+      </div>
+      <div class='adjustment'>
+        <div class='adjustment-label'>Contrast</div>
+        <div class='adjustment-slider'>
+          <input type='range' name='contrast' min='-100' max='100' step='0.01'
+            value='0' data-default=0'>
+        </div>
+      </div>
+      <div class='adjustment'>
+        <div class='adjustment-label'>Vibrance</div>
+        <div class='adjustment-slider'>
+          <input type='range' name='vibrance' min='-100' max='100' step='0.01'
+            value='0' data-default=0'>
+        </div>
+      </div>
+      <div class='adjustment'>
+        <div class='adjustment-label'>Sharpen</div>
+        <div class='adjustment-slider'>
+          <input type='range' name='sharpen' min='0' max='100' step='0.01'
+            value='0' data-default='0'>
+        </div>
+      </div>
+      <div class='adjustment'>
+        <div class='adjustment-label'>Noise</div>
+        <div class='adjustment-slider'>
+          <input type='range' name='noise' min='0' max='100' step='0.01'
+            value='0' data-default='0'>
+        </div>
+      </div>
+      <div class='adjustment'>
+        <div class='adjustment-label'>Blur</div>
+        <div class='adjustment-slider'>
+          <input type='range' name='stackBlur' min='0' max='100' step='0.01'
+            value='0' data-default='0'>
+        </div>
+      </div>
+      <div class='adjustment'>
+        <div class='adjustment-label'>Clip</div>
+        <div class='adjustment-slider'>
+          <input type='range' name='clip' min='0' max='100' step='0.01'
+            value='0' data-default='0'>
+        </div>
+      </div>
+      <div class='adjustment'>
+        <div class='adjustment-label'>Hue</div>
+        <div class='adjustment-slider'>
+          <input type='range' name='hue' min='0' max='100' step='0.01'
+            value='0' data-default='0'>
+        </div>
+      </div>
+      <div class='adjustment'>
+        <div class='adjustment-label'>Sepia</div>
+        <div class='adjustment-slider'>
+          <input type='range' name='sepia' min='0' max='100' step='0.01'
+            value='0' data-default='0'>
+        </div>
+      </div>
+      <div class='adjustment'>
+        <button id='reset' class='btn btn-default'>Reset</button>
+      </div>
+    </div>
+
+    <div id='filters' class='tab-pane'>
+    </div>
+  </div>
+</div>

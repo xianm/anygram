@@ -1,0 +1,61 @@
+#file-upload-wrapper {
+  display: table;
+
+  cursor: pointer;
+
+  width: 512px;
+  height: 512px;
+
+  margin: 80px auto 0;
+
+  background: rgba(0, 0, 0, 0.05);
+
+  border: 4px solid gray;
+
+  text-align: center;
+  font-size: 4em;
+}
+
+#file-upload {
+  width: 100%;
+  height: 100%;
+
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#file-source {
+  display: none;
+}
+
+#editor-container {
+  width: 100%;
+  margin-top: 54px;
+}
+
+#editor-main {
+  float: left;
+
+  margin-right: 10px;
+}
+
+#editor-controls {
+  float: right;
+
+  width: 500px;
+}
+
+#editor {
+  width: 512px;
+  height: 512px;
+}
+
+#editor-form {
+  width: 512px;
+}
+
+#editor-form textarea {
+  width: 100%;
+
+  padding: 5px;
+}

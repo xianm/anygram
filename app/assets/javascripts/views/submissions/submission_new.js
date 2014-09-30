@@ -1,49 +1,89 @@
 AnyGram.Views.SubmissionNew = Backbone.View.extend({
-  template: JST['submission/new'],
-  className: 'container-fluid',
+  initialize: function () {
+    this.editing = false;
+    this.adjustments = {};
+  },
+
+  id: 'editor-container',
+
+  template: function () {
+    return JST[this.editing ? 'submission/editor' : 'submission/new']();
+  },
 
   events: {
-    'change #source': 'onChange',
+    'click #file-upload': 'onFileUploadClick',
+    'change #file-source': 'onFileSourceChange',
     'click #upload': 'onUpload',
-    'click #cancel': 'onCancel'
+    'click #cancel': 'onCancel',
+    'change input[type=range]': 'onRangeChange',
+    'click #reset': 'onReset'
   },
 
   render: function () {
     var content = this.template();
     this.$el.html(content);
+
+    if (this.editing) {
+      this.renderCanvas(this.image);
+    }
+
     return this;
   },
 
-  onChange: function (event) {
-    var file = event.currentTarget.files[0];
+  onFileUploadClick: function (event) {
+    var $fileInput = $('#file-source');
+    $fileInput.click();
+  },
+
+  onFileSourceChange: function (event) {
     var view = this;
+    var file = event.currentTarget.files[0];
     var reader = new FileReader();
 
-    reader.onload = function (e) {
-      var $wrapper = $('#editor-wrapper');
-      var $canvas = $('#editor');
-      var ctx = $canvas.get(0).getContext('2d');
-
-      ctx.fillStyle = '#000000';
-      ctx.fillRect(0, 0, 512, 512);
-
-      var img = new Image();
-      img.src = this.result;
-      img.onload = function (e) {
-        var divisor = (img.width > img.height ? img.width : img.height) / 512;
-        var width = img.width / divisor;
-        var height = img.height / divisor;
-        var x = (512- width) / 2;
-        var y = (512 - height) / 2;
-
-        ctx.drawImage(img, x, y, width, height);
-
-        $('#upload-form').hide();
-        $wrapper.show();
-      };
+    reader.onloadend = function (e) {
+      view.initializeCanvas(this.result);
+      view.editing = true;
+      view.render();
     };
 
     reader.readAsDataURL(file);
+  },
+
+  initializeCanvas: function (dataUrl) {
+    this.caman = Caman('#editor', dataUrl);
+  },
+
+  renderCanvas: function () {
+    var adjs = this.adjustments;
+    this.caman.revert(false);
+
+    for (var prop in this.adjustments) {
+      var value = this.adjustments[prop] / 1;
+      console.log(prop + ' = ' + value);
+      this.caman[prop](value);
+    }
+
+    this.caman.render();
+  },
+
+  onRangeChange: function (event) {
+    if (event.target.value === $(event.target).data('default')) {
+      delete this.adjustments[event.target.name];
+    } else {
+      this.adjustments[event.target.name] = event.target.value;
+    }
+
+    this.renderCanvas(this.image);
+  },
+
+  onReset: function (event) {
+    event.preventDefault();
+
+    $('input[type=range]').each(function (id, el) { 
+      el.value = $(el).data('default');
+    });
+    this.adjustments = {};
+    this.renderCanvas(this.image);
   },
 
   onUpload: function (event) {
@@ -52,7 +92,7 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
     var canvas = $('#editor').get(0);
     var data = canvas.toDataURL('image/jpeg');
 
-    var attrs = $('form').serializeJSON();
+    var attrs = $('#editor-form').serializeJSON();
     attrs.source = data;
 
     this.model.save(attrs, {
@@ -65,12 +105,9 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
   onCancel: function (event) {
     event.preventDefault();
 
-    var $wrapper = $('#editor-wrapper');
-    var $canvas = $('#editor');
-    var canvas = $canvas.get(0);
-    var ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, 512, 512);
-    $wrapper.hide();
-    $('#upload-form').show();
+    this.image = null;
+    this.caman = null;
+    this.editing = false;
+    this.render();
   }
 });
