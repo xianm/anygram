@@ -23,8 +23,7 @@ window.AnyGram = {
       AnyGram.notFound();
     }
 
-    $('#search-form').searchable({
-      searchBar: '#search-bar',
+    $('#search-bar').searchable({
       results: '#search-results'
     });
   },
