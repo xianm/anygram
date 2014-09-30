@@ -111,7 +111,7 @@
 
 #search-bar, .input-group-addon {
   opacity: 0.5;
-  transition: width 500ms, opacity 500ms;
+  transition: opacity 500ms;
 }
 
 #search-bar:focus, #search-bar:focus + .input-group-addon {
@@ -150,16 +150,8 @@
 
 #search-results > li:hover, .search-results-selected {
   color: black;
-  background: #F5F5F5 !important;
+  background: #E0E0E0 !important;
   font-weight: bold;
-}
-
-#search-results > li:active {
-  background: #EFEFEF;
-}
-
-#search-results > li:first-of-type {
-  border-top-right-radius: 7px;
 }
 
 #search-results > li:last-of-type {
