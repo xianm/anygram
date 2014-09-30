@@ -50,17 +50,14 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
   },
 
   initializeCanvas: function (dataUrl) {
-    this.caman = Caman('#editor', dataUrl);
+    this.caman = Caman('#editor', dataUrl, this.renderCanvas.bind(this));
   },
 
   renderCanvas: function () {
-    var adjs = this.adjustments;
     this.caman.revert(false);
 
     for (var prop in this.adjustments) {
-      var value = this.adjustments[prop] / 1;
-      console.log(prop + ' = ' + value);
-      this.caman[prop](value);
+      this.caman[prop](this.adjustments[prop]);
     }
 
     this.caman.render();
@@ -70,10 +67,10 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
     if (event.target.value === $(event.target).data('default')) {
       delete this.adjustments[event.target.name];
     } else {
-      this.adjustments[event.target.name] = event.target.value;
+      this.adjustments[event.target.name] = event.target.value * 1;
     }
 
-    this.renderCanvas(this.image);
+    this.renderCanvas();
   },
 
   onReset: function (event) {
@@ -82,8 +79,9 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
     $('input[type=range]').each(function (id, el) { 
       el.value = $(el).data('default');
     });
+
     this.adjustments = {};
-    this.renderCanvas(this.image);
+    this.renderCanvas();
   },
 
   onUpload: function (event) {
@@ -105,7 +103,6 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
   onCancel: function (event) {
     event.preventDefault();
 
-    this.image = null;
     this.caman = null;
     this.editing = false;
     this.render();
