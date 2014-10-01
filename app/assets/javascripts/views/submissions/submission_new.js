@@ -13,11 +13,11 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
   events: {
     'click #file-upload': 'onFileUploadClick',
     'change #file-source': 'onFileSourceChange',
-    'click #upload': 'onUpload',
-    'click #cancel': 'onCancel',
-    'change input[type=range]': 'onRangeChange',
+    'click #upload': 'onSubmitUpload',
+    'click #cancel': 'onCancelUpload',
     'click .filter': 'onApplyFilter',
-    'click #reset': 'onReset'
+    'change input[type=range]': 'onAdjustmentChange',
+    'click #reset': 'onResetAll'
   },
 
   render: function () {
@@ -50,11 +50,25 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
     reader.readAsDataURL(file);
   },
 
-  onRangeChange: function (event) {
-    var name = event.target.name;
-    var weight = event.target.value;
-    var defaultWeight = $(event.target).data('default');
-    this.editor.applyAdjustment(name, weight, defaultWeight);
+  onSubmitUpload: function (event) {
+    event.preventDefault();
+
+    var attrs = $('#editor-form').serializeJSON();
+    attrs.source = this.editor.toBase64();
+
+    this.model.save(attrs, {
+      success: function (model) {
+        Backbone.history.navigate('#/view/' + model.id);
+      }
+    });
+  },
+
+  onCancelUpload: function (event) {
+    event.preventDefault();
+
+    this.editing = false;
+    this.editor = null;
+    this.render();
   },
 
   onApplyFilter: function (event) {
@@ -69,7 +83,14 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
     }
   },
 
-  onReset: function (event) {
+ onAdjustmentChange: function (event) {
+    var name = event.target.name;
+    var weight = event.target.value * 1;
+    var defaultWeight = $(event.target).data('default') * 1;
+    this.editor.applyAdjustment(name, weight, defaultWeight);
+  },
+
+  onResetAll: function (event) {
     event.preventDefault();
 
     $('input[type=range]').each(function (id, el) { 
@@ -77,26 +98,5 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
     });
 
     this.editor.resetAdjustments();
-  },
-
-  onUpload: function (event) {
-    event.preventDefault();
-
-    var attrs = $('#editor-form').serializeJSON();
-    attrs.source = this.editor.toBase64();
-
-    this.model.save(attrs, {
-      success: function (model) {
-        Backbone.history.navigate('#/view/' + model.id);
-      }
-    });
-  },
-
-  onCancel: function (event) {
-    event.preventDefault();
-
-    this.editing = false;
-    this.editor = null;
-    this.render();
   }
 });
