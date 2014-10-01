@@ -69,7 +69,7 @@ ImageEditor.prototype.applyFilter = function (name) {
 };
 
 ImageEditor.prototype.applyAdjustment = function (name, weight, defaultWeight) {
-  this.prevAdjustments = _.clone(this.adjustments);
+  var prevWeight = this.adjustments[name];
 
   if (weight === defaultWeight) {
     delete this.adjustments[name];
@@ -77,29 +77,15 @@ ImageEditor.prototype.applyAdjustment = function (name, weight, defaultWeight) {
     this.adjustments[name] = weight;
   }
 
-  /* Smarter rendering: search through the current list of adjustments to be
-   * applied to the image, and ONLY revert the canvas back to the original
-   * state if a value had been previously set and has changed, otherwise just
-   * store the list of new changes to be made and apply only those
-   */
-  var revert = false;
-  var newAdjustments = {};
-
-  _.each(this.adjustments, function (weight, name) {
-    var prevWeight = this.prevAdjustments[name];
-
-    if (prevWeight && prevWeight !== weight) {
-      revert = true;
-      return;
-    } else if (!prevWeight) {
-      newAdjustments[name] = weight;
-    }
-  }.bind(this));
+  var currWeight = this.adjustments[name];
+  var revert = (prevWeight && prevWeight !== currWeight);
+  var adjustment = {};
+  adjustment[name] = weight;
 
   this.render({
     revert: revert,
     filter: revert ? this.filter : null,
-    adjustments: revert ? this.adjustments : newAdjustments
+    adjustments: revert ? this.adjustments : adjustment
   });
 };
 
