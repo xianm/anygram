@@ -16,20 +16,7 @@ ImageEditor.prototype.createCaman = function (selector) {
    *
    * Caman could then call this.crop(x, y, w, h) [..do operations..]
    */
-  var self = this;
-
-  Caman(selector, this.base64Image, function () {
-    var size = {
-      width: this.width > this.height ? 512 : null,
-      height: this.height > this.width ? 512 : null
-    };
-
-    this.resize(size).render(function () {
-      self.caman = this;
-
-      $(selector).width(this.width).height(this.height);
-    });
-  });
+  this.caman = Caman(selector, this.base64Image);
 };
 
 /* This function takes an options hash, with valid options being:
