@@ -1,7 +1,7 @@
 <div id='editor-main'>
   <canvas id='editor'></canvas>
 
-  <form id='editor-form' role='form' action='#"'>
+  <form id='editor-form' role='form' action='#'>
     <textarea id='caption' name='caption' placeholder='Write a caption...' 
       rows='2'></textarea>
     <button id='upload' class='btn btn-default'>Upload</button>
@@ -12,15 +12,98 @@
 <div id='editor-controls'>
   <ul class='nav nav-tabs' role='tablist'>
     <li class='active'>
-      <a href='#adjustments' role='tab' data-toggle='tab'>Adjustments</a>
+      <a href='#filters' role='tab' data-toggle='tab'>Filters</a>
     </li>
     <li>
-      <a href='#filters' role='tab' data-toggle='tab'>Filters</a>
+      <a href='#adjustments' role='tab' data-toggle='tab'>Adjustments</a>
     </li>
   </ul>
 
   <div class='tab-content'>
-    <div id='adjustments' class='tab-pane active'>
+    <div id='filters' class='tab-pane active'>
+      <div data-name='none' class='filter-preview filter'>
+        <span>None</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/none.png" alt="Filter - None" />
+      </div>
+      <div data-name='claribel' class="filter-preview filter">
+        <span>Claribel</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/claribel.png" alt="Filter - Claribel" />
+      </div>
+      <div data-name='lomo' class="filter-preview filter">
+        <span>Lomo</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/lomo.png" alt="Filter - Lomo" />
+      </div>
+      <div data-name='vintage' class="filter-preview filter">
+        <span>Vintage</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/vintage.png" alt="Filter - Vintage" />
+      </div>
+      <div data-name='clarity' class="filter-preview filter">
+        <span>Clarity</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/clarity.png" alt="Filter - Clarity" />
+      </div>
+      <div data-name='sinCity' class="filter-preview filter">
+        <span>Sin City</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/sin-city.png" alt="Filter - Sin City" />
+      </div>
+      <div data-name='sunrise' class="filter-preview filter">
+        <span>Sunrise</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/sunrise.png" alt="Filter - Sunrise" />
+      </div>
+      <div data-name='crossProcess' class="filter-preview filter">
+        <span>Cross Process</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/cross-process.png" alt="Filter - Cross Process" />
+      </div>
+      <div data-name='orangePeel' class="filter-preview filter">
+        <span>Orange Peel</span>      
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/orange-peel.png" alt="Filter - Orange Peel" />
+      </div>
+      <div data-name='love' class="filter-preview filter">
+        <span>Love</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/love.png" alt="Filter - Love" />
+      </div>
+      <div data-name='grungy' class="filter-preview filter">
+        <span>Grungy</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/grungy.png" alt="Filter - Grungy" />
+      </div>
+      <div data-name='jarques' class="filter-preview filter">
+        <span>Jarques</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/jarques.png" alt="Filter - Jarques" />
+      </div>
+      <div data-name='pinhole' class="filter-preview filter">
+        <span>Pinhole</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/pinhole.png" alt="Filter - Pinhole" />
+      </div>
+      <div data-name='oldBoot' class="filter-preview filter">
+        <span>Old Boot</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/old-boot.png" alt="Filter - Old Boot" />
+      </div>
+      <div data-name='glowingSun' class="filter-preview filter">
+        <span>Glowing Sun</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/glowing-sun.png" alt="Filter - Glowing Sun" />
+      </div>
+      <div data-name='hazyDays' class="filter-preview filter">
+        <span>Hazy Days</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/hazy-days.png" alt="Filter - Hazy Days" />
+      </div>
+      <div data-name='herMajesty' class="filter-preview filter">
+        <span>Her Majesty</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/her-majesty.png" alt="Filter - Her Majesty" />
+      </div>
+      <div data-name='nostalgia' class="filter-preview filter">
+        <span>Nostalgia</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/nostalgia.png" alt="Filter - Nostalgia" />
+      </div>
+      <div data-name='hemingway' class="filter-preview filter">
+        <span>Hemingway</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/hemingway.png" alt="Filter - Hemingway" />
+      </div>
+      <div data-name='concentrate' class="filter-preview filter">
+        <span>Concentrate</span>
+        <img src="https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/filter-previews/concentrate.png" alt="Filter - Concentrate" />
+      </div>
+    </div>
+
+    <div id='adjustments' class='tab-pane'>
       <div class='adjustment'>
         <div class='adjustment-label'>Brightness</div>
         <div class='adjustment-slider'>
@@ -98,12 +181,7 @@
             value='0' data-default='0'>
         </div>
       </div>
-      <div class='adjustment'>
-        <button id='reset' class='btn btn-default'>Reset</button>
-      </div>
     </div>
-
-    <div id='filters' class='tab-pane'>
-    </div>
+    <button id='reset' class='btn btn-default'>Reset All</button>
   </div>
 </div>

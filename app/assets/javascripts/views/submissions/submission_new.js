@@ -16,6 +16,7 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
     'click #upload': 'onUpload',
     'click #cancel': 'onCancel',
     'change input[type=range]': 'onRangeChange',
+    'click .filter': 'onApplyFilter',
     'click #reset': 'onReset'
   },
 
@@ -53,14 +54,25 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
     this.caman = Caman('#editor', image);
   },
 
-  renderCanvas: function (revert, adjustments) {
-    if (revert) this.caman.revert(false);
-
-    for (var prop in adjustments) {
-      this.caman[prop](adjustments[prop]);
+  renderCanvas: function (options) {
+    if (options.revert) {
+      this.caman.revert(false);
     }
 
-    this.caman.render();
+    if (options.filter) {
+      this.caman[options.filter]();
+    }
+
+    if (options.adjustments) {
+      var adjustments = options.adjustments;
+      for (var prop in adjustments) {
+        this.caman[prop](adjustments[prop]);
+      }
+    }
+
+    this.caman.render(function () {
+      // TODO: handle callback when rendering is finishing..
+    });
   },
 
   onRangeChange: function (event) {
@@ -72,6 +84,11 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
       this.adjustments[event.target.name] = event.target.value * 1;
     }
 
+    /* Smarter rendering: search through the current list of adjustments to be
+     * applied to the image, and ONLY revert the canvas back to the original
+     * state if a value had been previously set and has changed, otherwise just
+     * store the list of new changes to be made and apply only those
+     */
     var revert = false;
     var newAdjustments = {};
 
@@ -87,7 +104,27 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
       }
     }
 
-    this.renderCanvas(revert, revert ? this.adjustments : newAdjustments);
+    this.renderCanvas({
+      revert: revert, 
+      filter: revert ? this.filter : null,
+      adjustments: revert ? this.adjustments : newAdjustments
+    });
+  },
+
+  onApplyFilter: function (event) {
+    event.preventDefault();
+
+    this.filter = $(event.target).data('name');
+
+    if (this.filter === 'none') {
+      this.filter = null;
+    }
+
+    this.renderCanvas({
+      revert: true,
+      filter: this.filter,
+      adjustments: this.adjustments
+    });
   },
 
   onReset: function (event) {
@@ -98,17 +135,14 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
     });
 
     this.adjustments = {};
-    this.renderCanvas(true, {});
+    this.renderCanvas({ revert: true });
   },
 
   onUpload: function (event) {
     event.preventDefault();
 
-    var canvas = $('#editor').get(0);
-    var data = canvas.toDataURL('image/jpeg');
-
     var attrs = $('#editor-form').serializeJSON();
-    attrs.source = data;
+    attrs.source = this.caman.toBase64();
 
     this.model.save(attrs, {
       success: function (model) {
