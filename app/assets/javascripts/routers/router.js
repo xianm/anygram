@@ -12,19 +12,14 @@ AnyGram.Routers.Router = Backbone.Router.extend({
   },
 
   showFeed: function () {
-    var feed = new AnyGram.Models.Feed();
-    feed.fetch();
-
     var view = new AnyGram.Views.FeedShow({
-      model: feed,
-      collection: feed.submissions()
+      collection: new AnyGram.Collections.Submissions()
     });
     this.changeView(view);
   },
 
   showProfile: function (id) {
     var profile = AnyGram.profiles.getOrFetch(id);
-
     var view = new AnyGram.Views.ProfileShow({
       model: profile,
       collection: profile.submissions()

@@ -53,13 +53,21 @@ class User < ActiveRecord::Base
     followed.include?(user)
   end
 
-  def feed_submissions
+  def feed_submissions(limit = 7, max_created_at = nil)
     @submissions = Submission
       .joins(:user)
       .joins('LEFT OUTER JOIN follows ON users.id = follows.user_id')
       .where('submissions.user_id = :id OR follows.follower_id = :id', id: self.id)
       .order('submissions.created_at DESC')
       .uniq
+
+    if limit
+      @submissions = @submissions.limit(limit)
+    end
+
+    if max_created_at
+      @submissions = @submissions.where('submissions.created_at < ?', max_created_at)
+    end
 
     @submissions.includes(:submitter, :favorers)
   end
