@@ -24,7 +24,7 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
     this.$el.html(content);
 
     if (this.editing) {
-      this.renderCanvas(this.image);
+      this.initializeCanvas(this.image);
     }
 
     return this;
@@ -41,7 +41,7 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
     var reader = new FileReader();
 
     reader.onloadend = function (e) {
-      view.initializeCanvas(this.result);
+      view.image = this.result;
       view.editing = true;
       view.render();
     };
@@ -49,28 +49,45 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
     reader.readAsDataURL(file);
   },
 
-  initializeCanvas: function (dataUrl) {
-    this.caman = Caman('#editor', dataUrl, this.renderCanvas.bind(this));
+  initializeCanvas: function (image) {
+    this.caman = Caman('#editor', image);
   },
 
-  renderCanvas: function () {
-    this.caman.revert(false);
+  renderCanvas: function (revert, adjustments) {
+    if (revert) this.caman.revert(false);
 
-    for (var prop in this.adjustments) {
-      this.caman[prop](this.adjustments[prop]);
+    for (var prop in adjustments) {
+      this.caman[prop](adjustments[prop]);
     }
 
     this.caman.render();
   },
 
   onRangeChange: function (event) {
+    this.prevAdjustments = _.clone(this.adjustments);
+
     if (event.target.value === $(event.target).data('default')) {
       delete this.adjustments[event.target.name];
     } else {
       this.adjustments[event.target.name] = event.target.value * 1;
     }
 
-    this.renderCanvas();
+    var revert = false;
+    var newAdjustments = {};
+
+    for (var prop in this.adjustments) {
+      var prev = this.prevAdjustments[prop];
+      var next = this.adjustments[prop];
+
+      if (prev && prev !== next) {
+        revert = true;
+        break;
+      } else if (!prev) {
+        newAdjustments[prop] = next;
+      }
+    }
+
+    this.renderCanvas(revert, revert ? this.adjustments : newAdjustments);
   },
 
   onReset: function (event) {
@@ -81,7 +98,7 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
     });
 
     this.adjustments = {};
-    this.renderCanvas();
+    this.renderCanvas(true, {});
   },
 
   onUpload: function (event) {
