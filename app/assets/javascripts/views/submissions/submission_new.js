@@ -51,7 +51,20 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
   },
 
   initializeCanvas: function (image) {
-    this.caman = Caman('#editor', image);
+    var view = this;
+
+    Caman('#editor', image, function () {
+      var size = {
+        width: this.width > this.height ? 512 : null,
+        height: this.height > this.width ? 512 : null
+      };
+
+      this.resize(size).render(function () {
+        view.caman = this;
+
+        $('#editor').width(this.width).height(this.height);
+      });
+    });
   },
 
   renderCanvas: function (options) {
