@@ -57,6 +57,7 @@ class User < ActiveRecord::Base
     @submissions = Submission
       .joins(:user)
       .joins('LEFT OUTER JOIN follows ON users.id = follows.user_id')
+      .includes(:submitter, favorers: :profile, comments: { user: :profile })
       .where('submissions.user_id = :id OR follows.follower_id = :id', id: self.id)
       .order('submissions.created_at DESC')
       .uniq
@@ -73,7 +74,7 @@ class User < ActiveRecord::Base
       @submissions = @submissions.where('submissions.created_at > ?', min_created_at)
     end
 
-    @submissions.includes(:submitter, :favorers)
+    @submissions
   end
 
   def favorited?(submission)

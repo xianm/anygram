@@ -21,6 +21,7 @@ class Api::SubmissionsController < ApplicationController
   end
 
   def show
+    @current_user_favorites = current_user.favorited_ids
     @submission = Submission.find(params[:id])
 
     render :show

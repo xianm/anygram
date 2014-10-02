@@ -2,7 +2,7 @@ json.(submission, :id, :created_at, :caption)
 
 json.time_ago time_ago_in_words(submission.created_at)
 json.url submission.source.url
-json.favorited current_user.favorited?(submission)
+json.favorited @current_user_favorites.include?(submission.id)
 
 json.submitter submission.submitter, :id, :name, :display_name
 
