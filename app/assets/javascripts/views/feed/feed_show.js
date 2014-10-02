@@ -14,12 +14,15 @@ AnyGram.Views.FeedShow = Backbone.CompositeView.extend({
       if (view.can_fetch) {
         var $window = $(this);
         var $feedItem = $('.feed-item:nth-last-of-type(2)');
-        var offset = $feedItem.offset().top;
-        var windowY = window.pageYOffset + $window.height();
 
-        if (windowY > offset) {
-          view.can_fetch = false;
-          view.fetchSubmissions();
+        if ($feedItem.length > 0) {
+          var offset = $feedItem.offset().top;
+          var windowY = window.pageYOffset + $window.height();
+
+          if (windowY > offset) {
+            view.can_fetch = false;
+            view.fetchSubmissions();
+          }
         }
       }
     });
