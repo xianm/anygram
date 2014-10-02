@@ -17,6 +17,7 @@
 //= require backbone
 //= require bootstrap
 //= require caman
+//= require kinetic
 //= require anygram
 //= require_tree ../templates
 //= require_tree ./patches

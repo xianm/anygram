@@ -1,22 +1,51 @@
 ImageEditor = function (selector, base64Image) {
-  this.base64Image = base64Image;
-  this.createCaman(selector);
-  this.filter = null;
   this.adjustments = {};
+  this.filter = null;
+  this.scale = 1;
+
+  this.initializeKinetic(selector);
+  this.initializeCaman(base64Image);
 };
 
-ImageEditor.prototype.createCaman = function (selector) {
-  /* Possible solution to predicament!!
-   *
-   * Like previously done, import the image onto the canvas, position it
-   * centered vertically or horizontally (depending on width/height) and
-   * then set crop variables for the Caman object to work with
-   *   
-   *   example:  - crop { x, y, width, height }
-   *
-   * Caman could then call this.crop(x, y, w, h) [..do operations..]
-   */
-  this.caman = Caman(selector, this.base64Image);
+ImageEditor.prototype.initializeKinetic = function (selector) {
+  this.stage = new Kinetic.Stage({
+    container: selector,
+    width: 512,
+    height: 512
+  });
+
+  this.imageLayer = new Kinetic.Layer();
+
+  this.stage.add(this.imageLayer);
+};
+
+ImageEditor.prototype.finalizeKinetic = function () {
+  this.kineticImage = new Kinetic.Image({
+    x: 0,
+    y: 0,
+    image: this.camanCanvas,
+    draggable: true
+  });
+
+  this.imageLayer.add(this.kineticImage);
+};
+
+ImageEditor.prototype.initializeCaman = function (base64Image) {
+  this.camanCanvas = document.createElement('canvas');
+  var context = this.camanCanvas.getContext('2d');
+
+  this.image = new Image();
+  this.image.onload = function () {
+    this.camanCanvas.width = this.image.width;
+    this.camanCanvas.height = this.image.height;
+
+    context.drawImage(this.image, 0, 0);
+
+    this.finalizeKinetic();
+
+    this.render({});
+  }.bind(this);
+  this.image.src = base64Image;
 };
 
 /* This function takes an options hash, with valid options being:
@@ -25,24 +54,36 @@ ImageEditor.prototype.createCaman = function (selector) {
  *  - adjustments: a hash with the name of the adjustment and the strength
  */
 ImageEditor.prototype.render = function (options) {
-  if (options.revert) {
-    this.caman.revert(false);
-  }
+  var editor = this;
 
-  if (options.filter) {
-    this.caman[options.filter]();
-  }
+  Caman(this.camanCanvas, function () {
+    if (options.revert) {
+      this.revert(false);
+    }
 
-  _.each(options.adjustments, function (weight, name) {
-    this.caman[name](weight);
-  }.bind(this));
+    if (options.filter) {
+      this[options.filter]();
+    }
 
-  this.caman.render(function () {
-    /* TODO: possible callback handler? (free up locked elements, etc)
-     * maybe even a callback at the start of the loop so we can lock up
-     * elements on a view?
-     */
+    _.each(options.adjustments, function (weight, name) {
+      this[name](weight);
+    }.bind(this));
+
+    this.render(function () {
+      editor.imageLayer.scale(editor.getScale());
+      editor.imageLayer.draw();
+    });
   });
+};
+
+ImageEditor.prototype.setScale = function (scale) {
+  this.scale = scale;
+  this.imageLayer.scale(this.getScale());
+  this.imageLayer.draw();
+};
+
+ImageEditor.prototype.getScale = function () {
+  return { x: this.scale, y: this.scale };
 };
 
 ImageEditor.prototype.applyFilter = function (name) {
@@ -76,6 +117,13 @@ ImageEditor.prototype.applyAdjustment = function (name, weight, defaultWeight) {
   });
 };
 
+ImageEditor.prototype.resetAll = function () {
+  this.adjustments = {};
+  this.scale = 1;
+
+  this.render({ revert: true });
+};
+
 ImageEditor.prototype.resetFilter = function () {
   this.filter = null;
 
@@ -85,11 +133,11 @@ ImageEditor.prototype.resetFilter = function () {
   });
 };
 
-ImageEditor.prototype.resetAdjustments = function () {
-  this.adjustments = {};
-  this.render({ revert: true });
-};
-
-ImageEditor.prototype.toBase64 = function () {
-  return this.caman.toBase64();
+ImageEditor.prototype.saveImage = function (callback) {
+  console.log('loading');
+  this.stage.toDataURL({
+    mimeType: 'image/jpeg',
+    quality: 1,
+    callback: callback
+  });
 };

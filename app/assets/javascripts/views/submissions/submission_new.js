@@ -25,7 +25,7 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
     this.$el.html(content);
 
     if (this.editing) {
-      this.editor = new ImageEditor('#editor', this.image);
+      this.editor = new ImageEditor('editor', this.image);
     }
 
     return this;
@@ -53,13 +53,17 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
   onSubmitUpload: function (event) {
     event.preventDefault();
 
-    var attrs = $('#editor-form').serializeJSON();
-    attrs.source = this.editor.toBase64();
+    var view = this;
 
-    this.model.save(attrs, {
-      success: function (model) {
-        Backbone.history.navigate('#/view/' + model.id);
-      }
+    this.editor.saveImage(function (base64Image) {
+      var attrs = $('#editor-form').serializeJSON();
+      attrs.source = base64Image;
+      
+      view.model.save(attrs, {
+        success: function (model) {
+          Backbone.history.navigate('#/view/' + model.id);
+        }
+      });
     });
   },
 
@@ -87,7 +91,12 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
     var name = event.target.name;
     var weight = event.target.value * 1;
     var defaultWeight = $(event.target).data('default') * 1;
-    this.editor.applyAdjustment(name, weight, defaultWeight);
+
+    if (name === 'size') {
+      this.editor.setScale(weight);
+    } else {
+      this.editor.applyAdjustment(name, weight, defaultWeight);
+    }
   },
 
   onResetAll: function (event) {
@@ -97,6 +106,6 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
       el.value = $(el).data('default');
     });
 
-    this.editor.resetAdjustments();
+    this.editor.resetAll();
   }
 });
