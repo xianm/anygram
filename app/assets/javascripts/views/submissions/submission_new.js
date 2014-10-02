@@ -25,7 +25,14 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
     this.$el.html(content);
 
     if (this.editing) {
-      this.editor = new ImageEditor('editor', this.image);
+      this.editor = new ImageEditor({
+        selector: 'editor', 
+        base64Image: this.image,
+        callback: function () {
+          // set our default value on the size slider to the scaled to fit
+          $('#size-slider').attr('data-default', this.scale).val(this.scale);
+        }
+      });
     }
 
     return this;

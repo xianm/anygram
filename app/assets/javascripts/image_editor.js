@@ -1,10 +1,11 @@
-ImageEditor = function (selector, base64Image) {
+ImageEditor = function (options) {
   this.adjustments = {};
   this.filter = null;
   this.scale = 1;
+  this.callback = options.callback;
 
-  this.initializeKinetic(selector);
-  this.initializeCaman(base64Image);
+  this.initializeKinetic(options.selector);
+  this.initializeCaman(options.base64Image);
 };
 
 ImageEditor.prototype.initializeKinetic = function (selector) {
@@ -14,20 +15,20 @@ ImageEditor.prototype.initializeKinetic = function (selector) {
     height: 512
   });
 
+  this.background = new Kinetic.Rect({
+    x: 0, 
+    y: 0,
+    width: 512,
+    height: 512,
+    fill: 'black'
+  });
+  this.backgroundLayer = new Kinetic.Layer();
+  this.backgroundLayer.add(this.background);
+
   this.imageLayer = new Kinetic.Layer();
 
+  this.stage.add(this.backgroundLayer);
   this.stage.add(this.imageLayer);
-};
-
-ImageEditor.prototype.finalizeKinetic = function () {
-  this.kineticImage = new Kinetic.Image({
-    x: 0,
-    y: 0,
-    image: this.camanCanvas,
-    draggable: true
-  });
-
-  this.imageLayer.add(this.kineticImage);
 };
 
 ImageEditor.prototype.initializeCaman = function (base64Image) {
@@ -43,9 +44,27 @@ ImageEditor.prototype.initializeCaman = function (base64Image) {
 
     this.finalizeKinetic();
 
+    this.setBackgroundColor('#000000');
+    this.scaleToFit(this.image.width, this.image.height);
+    this.center(this.image.width, this.image.height, this.scale);
+    
+    // Initialization complete, call our callback if we have one now!
+    if (this.callback) this.callback();
+
     this.render({});
   }.bind(this);
   this.image.src = base64Image;
+};
+
+ImageEditor.prototype.finalizeKinetic = function () {
+  this.kineticImage = new Kinetic.Image({
+    x: 0,
+    y: 0,
+    image: this.camanCanvas,
+    draggable: true
+  });
+
+  this.imageLayer.add(this.kineticImage);
 };
 
 /* This function takes an options hash, with valid options being:
@@ -54,6 +73,7 @@ ImageEditor.prototype.initializeCaman = function (base64Image) {
  *  - adjustments: a hash with the name of the adjustment and the strength
  */
 ImageEditor.prototype.render = function (options) {
+  options = options || {};
   var editor = this;
 
   Caman(this.camanCanvas, function () {
@@ -76,14 +96,35 @@ ImageEditor.prototype.render = function (options) {
   });
 };
 
+ImageEditor.prototype.scaleToFit = function (width, height) {
+  var scale = 512 / (width > height ? width : height);
+  this.setScale(scale);
+};
+
+ImageEditor.prototype.center = function (width, height, scale) {
+  width *= scale;
+  height *= scale;
+
+  console.log(this.imageLayer);
+  console.log(this.stage);
+  this.imageLayer.x((512 - width) / 2);
+  this.imageLayer.y((512 - height) / 2);
+  console.log(this.imageLayer);
+  console.log(this.stage);
+};
+
 ImageEditor.prototype.setScale = function (scale) {
   this.scale = scale;
-  this.imageLayer.scale(this.getScale());
-  this.imageLayer.draw();
+  this.render();
 };
 
 ImageEditor.prototype.getScale = function () {
   return { x: this.scale, y: this.scale };
+};
+
+ImageEditor.prototype.setBackgroundColor = function (color) {
+  this.background.fill(color);
+  this.backgroundLayer.draw();
 };
 
 ImageEditor.prototype.applyFilter = function (name) {
@@ -118,9 +159,12 @@ ImageEditor.prototype.applyAdjustment = function (name, weight, defaultWeight) {
 };
 
 ImageEditor.prototype.resetAll = function () {
-  this.adjustments = {};
-  this.scale = 1;
+  this.scaleToFit(this.image.width, this.image.height);
+  // TODO: this doesn't affect the image at all, why?
+  this.center(this.image.width, this.image.height, this.scale);
 
+  this.adjustments = {};
+  this.filter = null;
   this.render({ revert: true });
 };
 
@@ -134,7 +178,6 @@ ImageEditor.prototype.resetFilter = function () {
 };
 
 ImageEditor.prototype.saveImage = function (callback) {
-  console.log('loading');
   this.stage.toDataURL({
     mimeType: 'image/jpeg',
     quality: 1,
