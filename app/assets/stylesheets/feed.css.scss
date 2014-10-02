@@ -159,12 +159,13 @@
 }
 
 .feed-item-caption-container {
+  display: inline-block;
+
   width: 100%;
 
   background: white;
 
-  border-bottom: 1px solid #FEFEFE;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
   padding-bottom: 4px;
 }
@@ -199,10 +200,6 @@
   background: white;
 }
 
-.feed-item-comments-container:last-of-type > .feed-item-comment {
-  padding-bottom: 10px !important;
-}
-
 .feed-item-comment {
   padding: 8px inherit;
 }
@@ -233,12 +230,13 @@
 }
 
 .feed-item-new-comment-container {
+  display: inline-block;
+
   width: 100%;
 
   background: white;
 
-  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.1);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
 
   padding: 10px;
 }
