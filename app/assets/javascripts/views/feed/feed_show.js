@@ -1,7 +1,8 @@
 AnyGram.Views.FeedShow = Backbone.CompositeView.extend({
   initialize: function () {
-    this.max_created_at = null;
-    this.can_fetch = true;
+    this.maxCreatedAt = null;
+    this.canFetch = false;
+    this.prependSubviews = false;
 
     this.bindEvents();
   },
@@ -9,9 +10,11 @@ AnyGram.Views.FeedShow = Backbone.CompositeView.extend({
   bindEvents: function () {
     this.listenTo(this.collection, 'add', this.addSubmission);
 
+    $('#home-btn').on('click', this.refreshSubmissions.bind(this));
+
     var view = this;
     $(window).on('scroll', function () {
-      if (view.can_fetch) {
+      if (view.canFetch) {
         var $window = $(this);
         var $feedItem = $('.feed-item:nth-last-of-type(2)');
 
@@ -20,7 +23,7 @@ AnyGram.Views.FeedShow = Backbone.CompositeView.extend({
           var windowY = window.pageYOffset + $window.height();
 
           if (windowY > offset) {
-            view.can_fetch = false;
+            view.canFetch = false;
             view.fetchSubmissions();
           }
         }
@@ -43,27 +46,56 @@ AnyGram.Views.FeedShow = Backbone.CompositeView.extend({
 
   fetchSubmissions: function () {
     var view = this;
-
     var options = {
       url: '/api/feed',
       dataType: 'json',
       success: function (data) {
+        view.prependSubviews = false;
+
         var submissions = data.submissions;
 
         if (submissions.length > 0) {
           view.collection.add(data.submissions, { parse: true });
-          view.max_created_at = submissions[submissions.length - 1].created_at;
+          view.maxCreatedAt = submissions[submissions.length - 1].created_at;
 
           if (submissions.length >= 7) {
-            view.can_fetch = true;
+            view.canFetch = true;
+          } else {
+            $(window).unbind('scroll');
           }
         }
       }
     };
 
-    if (this.max_created_at) {
-      options.data = { max_created_at: this.max_created_at };
+    if (this.maxCreatedAt) {
+      options.data = { max_created_at: this.maxCreatedAt };
     }
+
+    $.ajax(options);
+  },
+
+  refreshSubmissions: function () {
+    if (this.collection.length === 0) {
+      return;
+    }
+
+    var last_submisison = this.collection.at(0);
+    var min_created_at = last_submisison.get('created_at');
+    var view = this;
+    var options = {
+      url: '/api/feed',
+      dataType: 'json',
+      data: { min_created_at: min_created_at },
+      success: function (data) {
+        view.prependSubviews = true;
+
+        var submissions = data.submissions.reverse();
+
+        if (submissions.length > 0) {
+          view.collection.add(data.submissions, { parse: true });
+        }
+      }
+    };
 
     $.ajax(options);
   },
@@ -72,6 +104,6 @@ AnyGram.Views.FeedShow = Backbone.CompositeView.extend({
     var view = new AnyGram.Views.SubmissionFeed({
       model: submission
     });
-    this.addSubview('#feed-items', view);
+    this.addSubview('#feed-items', view, this.prependSubviews);
   }
 });
