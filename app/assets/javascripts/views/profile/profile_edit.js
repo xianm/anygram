@@ -24,11 +24,8 @@ AnyGram.Views.ProfileEdit = Backbone.View.extend({
 
     this.model.save(data, {
       success: function (model, resp, options) {
-        AnyGram.alert('Success! Your profile has been updated.', { 
-          selector: '#inline-alerts',
-          type: 'success'
-        });
         $('#nav-username').text(model.escape('name'));
+        Backbone.history.navigate('#', { trigger: true });
       }.bind(this),
 
       error: function (model, resp, options) {

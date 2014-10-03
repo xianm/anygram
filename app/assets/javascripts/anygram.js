@@ -15,7 +15,6 @@ window.AnyGram = {
 
     // This gets called before every route action is called
     Backbone.history.on('route', function () {
-      AnyGram.clearAlert();
       window.scrollTo(0, 0);
     });
     
@@ -33,8 +32,6 @@ window.AnyGram = {
       trigger: true,
       replace: true
     });
-
-    AnyGram.alert("Oops! That page doesn't exist.");
   },
 
   alert: function (alerts, options) {
