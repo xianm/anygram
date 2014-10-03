@@ -34,7 +34,7 @@
   text-align: center;
 }
 
-#home-wrapper, #nav-wrapper, #search-wrapper {
+#home-wrapper, #submission-btn-wrapper, #nav-wrapper, #search-wrapper {
   height: 100%;
 
   position: absolute;
@@ -49,8 +49,13 @@
   border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-#nav-wrapper {
+#submission-btn-wrapper {
   right: 0;
+  width: 44px;
+}
+
+#nav-wrapper {
+  right: 44px;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
 
@@ -58,7 +63,7 @@
   top: 5px; left: 54px;
 }
 
-#home-btn, #nav-btn {
+#home-btn, #nav-btn, #submission-btn {
   height: 100%;
 
   box-sizing: border-box;
@@ -69,21 +74,21 @@
   transition: background-color 200ms;
 }
 
-#home-btn:hover, #nav-btn:hover {
+#home-btn:hover, #submission-btn:hover, #nav-btn:hover {
   cursor: pointer;
 
   background: rgba(255, 255, 255, 0.1);
 }
 
-#home-btn:active, #nav-btn:active {
+#home-btn:active, #submission-btn:active, #nav-btn:active {
   background: rgba(0, 0, 0, 0.1);
 }
 
-#home-btn {
+#home-btn, #submission-btn {
   font-size: 1.5em;
 }
 
-#home-btn a {
+#home-btn a, #submission-btn a {
   display: table;
 
   height: 100%;
@@ -93,7 +98,7 @@
   color: white;
 }
 
-#home-btn span {
+#home-btn span, #submission-btn span {
   display: table-cell;
   vertical-align: middle;
 }

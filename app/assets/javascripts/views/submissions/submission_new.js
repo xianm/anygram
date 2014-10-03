@@ -138,7 +138,7 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
   onResetAll: function (event) {
     event.preventDefault();
 
-    $('input[type=range]').each(function (id, el) { 
+    this.$('input[type=range]').each(function (id, el) { 
       el.value = $(el).data('default');
     });
 
@@ -156,11 +156,11 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
   setEnabled: function (value) {
     this.enabled = value;
     
-    $('input').prop('disabled', !value);
+    this.$('input').prop('disabled', !value);
     if (value) {
-      $('.filter-preview').removeClass('disabled-preview');
+      this.$('.filter-preview').removeClass('disabled-preview');
     } else {
-      $('.filter-preview').addClass('disabled-preview');
+      this.$('.filter-preview').addClass('disabled-preview');
     }
   }
 });
