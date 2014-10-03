@@ -129,6 +129,8 @@ AnyGram.Views.SubmissionNew = Backbone.View.extend({
 
       if (name === 'size') {
         this.editor.setScale(weight);
+      } else if (name === 'rotate') {
+        this.editor.setRotation(weight);
       } else {
         this.editor.applyAdjustment(name, weight, defaultWeight);
       }

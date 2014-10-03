@@ -94,6 +94,7 @@ ImageEditor.prototype.render = function (options) {
     }.bind(this));
 
     this.render(function () {
+      editor.kineticImage.rotation(editor.rotation);
       editor.imageLayer.scale(editor.getScale());
       editor.imageLayer.draw();
 
@@ -124,6 +125,11 @@ ImageEditor.prototype.setScale = function (scale) {
 
 ImageEditor.prototype.getScale = function () {
   return { x: this.scale, y: this.scale };
+};
+
+ImageEditor.prototype.setRotation = function (rotation) {
+  this.rotation = rotation;
+  this.render();
 };
 
 ImageEditor.prototype.setBackgroundColor = function (color) {
