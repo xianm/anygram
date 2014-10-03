@@ -1,29 +1,59 @@
-<div class='jumbotron'>
-  <h1><%= profile.escape('display_name') %></h1>
-
-  <h2>
-    @<%= profile.escape('name') %> 
-    <small><%= profile.sexSymbol() %></small>
-    <small><%= profile.location() %></small>
-  </h2>
-
-  <% if (profile.get('bio')) { %>
-  <p>
-    <%= profile.escape('bio') %>
-  </p>
-  <% } %>
-
-  <p>
-    <% if (AnyGram.currentUser.profile().id === profile.id) { %>
-      <small><a href='#/edit_profile'>Edit</a></small>
-    <% } else { %>
-      <button class='btn btn-default' id='follow-btn'></button>
-    <% } %>
-  </p>
-
-  <p><%= profile.submissions().length %> posts</p>
-  <p><%= profile.get('followers_count') %> followers</p>
-  <p><%= profile.get('followed_count') %> following</p>
+<div id='profile-header-background'>
+  <div id='profile-header-collage'>
+    <div class='collage-col-sm'>
+      <a href='#'><img class='collage-sm'></a>
+      <a href='#'><img class='collage-sm'></a>
+    </div>
+    <div class='collage-col-lg'>
+      <a href-'#'><img class='collage-lg'></a>
+    </div>
+    <div class='collage-col-sm'>
+      <a href='#'><img class='collage-sm'></a>
+      <a href='#'><img class='collage-sm'></a>
+    </div>
+    <div class='collage-col-sm'>
+      <a href='#'><img class='collage-sm'></a>
+      <a href='#'><img class='collage-sm'></a>
+    </div>
+  </div>
 </div>
 
-<div id='thumbnails' class='row'></div>
+<div id='profile-content'>
+  <div id='profile-info'>
+    <div id='user-info'>
+      <h1 id='name'>
+        <%= profile.escape('name') %>
+        <small><%= profile.escape('display_name') %></small>
+        <small><%= profile.sexSymbol() %></small>
+        <small><%= profile.location() %></small>
+      </h1>
+      <p><%= profile.escape('bio') %></p>
+
+      <div id='user-avatar-container'>
+        <img id='user-avatar' src='http://placehold.it/110x110'>
+        <p>
+          <% if (AnyGram.currentUser.profile().id === profile.id) { %>
+            <a id='edit-btn' class='btn btn-default' href='#/edit_profile'>Edit</a>
+          <% } else { %>
+            <button class='btn btn-default' id='follow-btn'></button>
+          <% } %>
+        </p>
+      </div>
+    </div>
+
+    <div id='follow-info'>
+      <div class='follow-info-content'>
+        <strong><%= profile.submissions().length %></strong><br>posts
+      </div>
+      <div class='follow-info-content'>
+        <strong><%= profile.get('followers_count') %></strong><br>followers
+      </div>
+      <div class='follow-info-content'>
+        <strong><%= profile.get('followed_count') %></strong><br>following
+      </div>
+    </div>
+  </div>
+
+  <div id='thumbnails'></div>
+</div>
+

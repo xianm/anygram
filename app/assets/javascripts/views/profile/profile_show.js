@@ -7,7 +7,6 @@ AnyGram.Views.ProfileShow = Backbone.CompositeView.extend({
   },
 
   template: JST['profile/show'],
-  className: 'container-fluid',
 
   render: function () {
     var content = this.template({ 
@@ -17,6 +16,15 @@ AnyGram.Views.ProfileShow = Backbone.CompositeView.extend({
     this.$el.html(content);
 
     this.attachSubviews();
+
+    var sources = this.collection.map(function (s) {
+      return { id: s.id, url: s.get('full_url') };
+    });
+
+    if (sources.length > 0) {
+      var $collage = this.$el.find('#profile-header-collage');
+      $collage.collage(sources);
+    }
 
     var $followBtn = this.$el.find('#follow-btn');
     $followBtn.followToggle({

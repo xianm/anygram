@@ -8,4 +8,5 @@ json.followed_count @profile.user.followed.count
 json.submissions @profile.user.submissions.order(id: :desc) do |submission|
   json.(submission, :id, :created_at)
   json.url submission.source.url(:thumb)
+  json.full_url submission.source.url
 end

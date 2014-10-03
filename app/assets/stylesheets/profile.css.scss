@@ -1,0 +1,172 @@
+#profile-header-background {
+  display: block;
+
+  position: absolute;
+  top: 44px;
+  left: 0;
+
+  width: 100%;
+  height: 444px;
+
+  background: linear-gradient(#0F0F0F, #111111, #202020, #222222);
+}
+
+#profile-header-collage {
+  margin: 34px auto 0;
+
+  width: 1024px;
+  height: 410px;
+
+  background: black;
+
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom: 1px solid black;
+}
+
+.collage-col-sm, .collage-col-lg {
+  float: left;
+  height: 100%;
+}
+
+.collage-col-sm > img, .collage-col-lg > img {
+  border-left: 1px solid black;
+}
+
+.collage-col-sm > img:first-of-type {
+  border-bottom: 1px solid black;
+}
+
+.collage-col-sm:first-child > img:first-of-type { 
+  border-top-left-radius: 7px;
+}
+
+.collage-col-sm:last-child > img:first-of-type { 
+  border-top-right-radius: 7px;
+}
+
+.collage-col-sm {
+  width: 20%;
+}
+
+.collage-col-lg {
+  width: 40%;
+  height: 100%;
+}
+
+.collage-sm {
+  display: block;
+  height: 50%;
+}
+
+.collage-lg {
+  height: 100%;
+}
+
+#profile-content {
+  margin-top: 488px;
+}
+
+#profile-info {
+  position: relative;
+
+  display: block;
+
+  width: 100%;
+  height: 145px;
+
+  background: #F5F5F5;
+
+  padding: 10px 30px 25px;
+}
+
+#user-info {
+  float: left;
+
+  overflow-y: hidden;
+
+  height: 100%;
+  width: 495px;
+  
+  margin-left: 130px;
+}
+
+#follow-info {
+  float: right;
+
+  background: #EEEEEE;
+
+  border: 1px solid silver;
+  border-radius: 6px;
+
+  margin-top: 24px;
+  padding: 10px;
+}
+
+.follow-info-content {
+  float: left;
+
+  width: 100px;
+
+  text-align: center;
+
+  border-right: 1px solid silver;
+}
+
+.follow-info-content:last-child {
+  border: none;
+}
+
+#user-avatar-container {
+  position: absolute;
+  left: 15px;
+  bottom: 15px;
+
+  height: 162px;
+  width: 125px;
+
+  background: white;
+
+  padding: 5px;
+}
+
+#user-avatar {
+  width: 100%;
+
+  margin-bottom: 5px;
+}
+
+#follow-btn, #edit-btn {
+  width: 100%;
+
+  color: white;
+  font-size: 0.9em;
+  letter-spacing: 1px;
+}
+
+#user-avatar-container, #user-avatar, #follow-btn, #edit-btn {
+  border: 1px solid silver;
+  border-radius: 6px;
+}
+
+.following {
+  background: linear-gradient(rgb(100, 195, 135), rgb(50, 145, 95));
+}
+
+.not-following, #edit-btn {
+  background: linear-gradient(rgb(100, 135, 175), rgb(50, 95, 145));
+}
+
+#thumbnails {
+  padding: 10px 0;
+}
+
+.submission-thumbnail {
+  float: left;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.submission-thumbnail:nth-child(5n) {
+  margin-right: 0;
+}

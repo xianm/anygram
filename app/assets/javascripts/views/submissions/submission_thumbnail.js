@@ -1,10 +1,6 @@
 AnyGram.Views.SubmissionThumbnail = Backbone.View.extend({
-  initialize: function () {
-
-  },
-
   template: JST['submission/thumbnail'],
-  className: 'col-xs-3',
+  className: 'submission-thumbnail',
 
   render: function () {
     var content = this.template({

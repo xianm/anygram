@@ -3,6 +3,7 @@ $.FollowToggle = function (el, options) {
   this.following = options.following;
   this.id = options.id;
 
+  this.$el.addClass(this.following ? 'following' : 'not-following');
   this.$el.on('click', this.handleClick.bind(this));
 
   this.render();
@@ -23,6 +24,8 @@ $.FollowToggle.prototype.handleClick = function (event) {
     success: function () {
       this.following = !this.following;
       this.$el.prop('disabled', false);
+      this.$el.removeClass('following not-following');
+      this.$el.addClass(this.following ? 'following' : 'not-following');
       this.render();
     }.bind(this),
 
