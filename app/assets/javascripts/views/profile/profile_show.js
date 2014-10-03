@@ -20,9 +20,14 @@ AnyGram.Views.ProfileShow = Backbone.CompositeView.extend({
       return { id: s.id, url: s.get('full_url') };
     });
 
+    var $collage = this.$el.find('#profile-header-collage');
+
     if (sources.length > 0) {
-      var $collage = this.$el.find('#profile-header-collage');
       $collage.collage(sources);
+    } else {
+      $collage.empty();
+      $('#profile-header-collage').addClass('shrink');
+      $('#profile-content').addClass('shrink');
     }
 
     var $counter = this.$el.find('#followers-count');
