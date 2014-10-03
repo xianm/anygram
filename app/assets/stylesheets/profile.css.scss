@@ -160,8 +160,16 @@
   background: linear-gradient(rgb(100, 195, 135), rgb(50, 145, 95));
 }
 
+.following:active {
+  background: linear-gradient(rgb(50, 145, 95), rgb(100, 195, 135));
+}
+
 .not-following, #edit-btn {
   background: linear-gradient(rgb(100, 135, 175), rgb(50, 95, 145));
+}
+
+.not-following:active, #edit-btn:active {
+  background: linear-gradient(rgb(50, 95, 145), rgb(100, 135, 175));
 }
 
 #thumbnails {

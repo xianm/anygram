@@ -1,59 +1,47 @@
 $.FollowToggle = function (el, options) {
   this.$el = $(el);
-  this.following = options.following;
+  this.setFollowState(options.following);
   this.id = options.id;
   this.callback = options.callback;
 
-  this.$el.addClass(this.following ? 'following' : 'not-following');
   this.$el.on('click', this.handleClick.bind(this));
-
-  this.render();
 };
 
 $.FollowToggle.prototype.handleClick = function (event) {
   event.preventDefault();
 
-  AnyGram.clearAlert();
-
-  var text = this.following ? 'Unfollowing...' : 'Following...';
-  this.setButtonDisabled(true, text);
+  this.setButtonDisabled(true);
+  this.setFollowState(!this.following);
 
   $.ajax({
     url: '/api/profiles/' + this.id + '/follow',
-    method: this.following ? 'DELETE' : 'POST',
+    method: this.following ? 'POST' : 'DELETE',
     dataType: 'json',
     success: function () {
-      this.following = !this.following;
-
-      this.$el.prop('disabled', false);
-      this.$el.removeClass('following not-following');
-      this.$el.addClass(this.following ? 'following' : 'not-following');
-
+      this.setButtonDisabled(false);
       if (this.callback) this.callback(this.following);
-
-      this.render();
     }.bind(this),
 
     error: function () {
-      AnyGram.alert('Something went wrong!');
-      this.$el.prop('disabled', false);
-      this.render();
+      this.setFollowState(!this.following);
+      this.setButtonDisabled(false);
     }.bind(this)
   });
-
 };
 
-$.FollowToggle.prototype.setButtonDisabled = function (value, text) {
-  this.$el.text(text);
+$.FollowToggle.prototype.setButtonDisabled = function (value) {
   this.$el.prop('disabled', value);
 };
 
-$.FollowToggle.prototype.updateCounter = function (delta) {
-  console.log(this.$counter);
-};
+$.FollowToggle.prototype.setFollowState = function (following) {
+  this.following = following;
 
-$.FollowToggle.prototype.render = function () {
-  this.$el.text(this.following ? 'Unfollow' : 'Follow');
+  var text = following ? 'Unfollow' : 'Follow';
+  var cssClass = following ? 'following' : 'not-following';
+
+  this.$el.removeClass('following not-following');
+  this.$el.addClass(cssClass);
+  this.$el.text(text);
 };
 
 $.fn.followToggle = function (options) {
