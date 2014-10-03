@@ -24,5 +24,6 @@ class ApplicationController < ActionController::Base
   def sign_out!(user)
     user.reset_session_token!
     session[:token].clear
+    user.destroy! if user.is_guest
   end
 end

@@ -1,6 +1,7 @@
 Anygram::Application.routes.draw do
   get    'register', to: 'users#new'
   post   'register', to: 'users#create'
+  post   'guest_sign_in', to: 'users#new_guest_user'
 
   resources :users, only: :show, defaults: { format: :json }
 
