@@ -18,6 +18,7 @@ Anygram::Application.routes.draw do
       resource :comment, only: [:create]
     end
     resource :feed, only: [:show]
+    get 'explore_profiles', to: 'explorer#profiles'
   end
 
   root 'static_pages#root'

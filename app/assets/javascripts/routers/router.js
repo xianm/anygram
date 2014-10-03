@@ -5,6 +5,7 @@ AnyGram.Routers.Router = Backbone.Router.extend({
 
   routes: {
     '': 'showFeed',
+    'explore': 'exploreProfiles',
     'profiles/:id': 'showProfile',
     'edit_profile': 'editProfile',
     'upload': 'newSubmission',
@@ -14,6 +15,13 @@ AnyGram.Routers.Router = Backbone.Router.extend({
   showFeed: function () {
     var view = new AnyGram.Views.FeedShow({
       collection: new AnyGram.Collections.Submissions()
+    });
+    this.changeView(view);
+  },
+
+  exploreProfiles: function () {
+    var view = new AnyGram.Views.ProfileExplorer({
+      collection: new AnyGram.Collections.Profiles()
     });
     this.changeView(view);
   },

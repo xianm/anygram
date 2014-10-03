@@ -77,6 +77,20 @@ class User < ActiveRecord::Base
     @submissions
   end
 
+  def recommended_profiles
+    Profile
+      .select('profiles.*,
+        COUNT(DISTINCT submissions.id) AS submissions_count,
+        COUNT(DISTINCT follows.id) AS followers_count,
+        CAST(COUNT(DISTINCT follows.id) AS float) / COUNT(DISTINCT submissions.id) AS weight')
+      .joins(:user)
+      .joins(user: :submissions)
+      .joins('LEFT OUTER JOIN follows ON users.id = follows.user_id')
+      .where('users.id <> :id', id: self.id)
+      .group('profiles.id')
+      .order('weight DESC')
+  end
+
   def favorited?(submission)
     favorited.include?(submission)
   end

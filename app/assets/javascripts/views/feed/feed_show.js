@@ -5,6 +5,8 @@ AnyGram.Views.FeedShow = Backbone.CompositeView.extend({
     this.prependSubviews = false;
 
     this.bindEvents();
+
+    this.fetchSubmissions();
   },
 
   bindEvents: function () {
@@ -39,7 +41,6 @@ AnyGram.Views.FeedShow = Backbone.CompositeView.extend({
     var content = this.template();
     this.$el.html(content);
     this.attachSubviews();
-    this.fetchSubmissions();
 
     return this;
   },
@@ -55,7 +56,7 @@ AnyGram.Views.FeedShow = Backbone.CompositeView.extend({
         var submissions = data.submissions;
 
         if (submissions.length > 0) {
-          view.collection.add(data.submissions, { parse: true });
+          view.collection.add(submissions, { parse: true });
           view.maxCreatedAt = submissions[submissions.length - 1].created_at;
 
           if (submissions.length >= 7) {
@@ -63,7 +64,7 @@ AnyGram.Views.FeedShow = Backbone.CompositeView.extend({
           } else {
             $(window).unbind('scroll');
           }
-        }
+        } 
       }
     };
 

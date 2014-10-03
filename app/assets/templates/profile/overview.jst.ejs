@@ -1,0 +1,36 @@
+<div id='profile-content' class='overview'>
+  <div id='profile-info'>
+    <div id='user-info'>
+      <h1 id='name'>
+        <a href='#/profiles/<%= profile.id %>'><%= profile.escape('name') %></a>
+        <small><%= profile.escape('display_name') %></small>
+        <small><%= profile.sexSymbol() %></small>
+        <small><%= profile.location() %></small>
+      </h1>
+      <p><%= profile.escape('bio') %></p>
+
+      <div id='user-avatar-container'>
+        <img id='user-avatar' src='http://placehold.it/110x110'>
+        <p>
+          <% if (AnyGram.currentUser.profile().id === profile.id) { %>
+            <a id='edit-btn' class='btn btn-default' href='#/edit_profile'>Edit</a>
+          <% } else { %>
+            <button class='btn btn-default' id='follow-btn'></button>
+          <% } %>
+        </p>
+      </div>
+    </div>
+
+    <div id='follow-info'>
+      <div class='follow-info-content'>
+        <strong><%= profile.get('submissions_count') %></strong><br>posts
+      </div>
+      <div class='follow-info-content'>
+        <strong id='followers-count'><%= profile.get('followers_count') %></strong><br>followers
+      </div>
+      <div class='follow-info-content'>
+        <strong><%= profile.get('followed_count') %></strong><br>following
+      </div>
+    </div>
+  </div>
+</div>
