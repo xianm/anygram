@@ -1,12 +1,12 @@
 <div id='profile-content' class='overview'>
   <div id='profile-info'>
     <div id='user-info'>
-      <h1 id='name'>
+      <h3 id='name'>
         <a href='#/profiles/<%= profile.id %>'><%= profile.escape('name') %></a>
         <small><%= profile.escape('display_name') %></small>
         <small><%= profile.sexSymbol() %></small>
         <small><%= profile.location() %></small>
-      </h1>
+      </h3>
       <p><%= profile.escape('bio') %></p>
 
       <div id='user-avatar-container'>
