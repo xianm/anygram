@@ -5,7 +5,7 @@ $.Collage = function (el, sources, options) {
   this.$images = this.$el.find('img');
   this.setInitialImages();
 
-  setInterval(this.updateCollage.bind(this), 2500);
+  setInterval(this.updateCollage.bind(this), 3500);
 };
 
 $.Collage.prototype.setInitialImages = function () {
@@ -19,6 +19,11 @@ $.Collage.prototype.setInitialImages = function () {
 $.Collage.prototype.updateCollage = function () {
   var $img = $(_.sample(this.$images, 1));
   var possibleSources = $(this.sources).not(this.sample).get();
+
+  if (possibleSources.length <= 0) {
+    return; 
+  }
+
   var newSource = _.sample(possibleSources, 1)[0];
   var oldSource = $img.attr('src');
 
@@ -34,13 +39,21 @@ $.Collage.prototype.updateCollage = function () {
 
   if (index > -1) this.sample.splice(index, 1);
 
-  this.setImageSource($img, newSource);
+  this.setImageSource($img, newSource, true);
 };
 
-$.Collage.prototype.setImageSource = function ($img, source) {
+$.Collage.prototype.setImageSource = function ($img, source, transition) {
   var $parent = $($img[0]).parent();
   $parent.attr('href', '#/view/' + source.id);
-  $img.attr('src', source.url);
+
+  if (transition) {
+    $img.fadeOut(250, function () {
+      $img.attr('src', source.url);
+      $img.fadeIn(250);
+    });
+  } else {
+    $img.attr('src', source.url);
+  }
 };
 
 $.fn.collage = function (sources, options) {
