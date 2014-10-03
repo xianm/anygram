@@ -63,8 +63,11 @@ AnyGram.Views.FeedShow = Backbone.CompositeView.extend({
             view.canFetch = true;
           } else {
             $(window).unbind('scroll');
+            $('#explore').show();
           }
-        } 
+        } else { 
+          $('#explore').show();
+        }
       }
     };
 
