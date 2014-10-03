@@ -67,15 +67,13 @@ AnyGram.Views.SubmissionShow = Backbone.View.extend({
     var avatar_url = this.model.get('thumb_url');
     var profile_id = AnyGram.currentUser.profile().id;
 
-    console.log('setting profile[' + profile_id + '] picture to ' + avatar_url);
-
     $.ajax({
       url: '/api/profiles/' + profile_id,
       type: 'PATCH',
       dataType: 'json',
       data: { profile: { avatar_url: avatar_url } },
-      success: function () {
-        console.log(arguments);
+      success: function (model) {
+        AnyGram.currentUser.profile().set(model);
       }
     });
 
