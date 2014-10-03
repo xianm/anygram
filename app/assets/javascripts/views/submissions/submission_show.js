@@ -10,6 +10,10 @@ AnyGram.Views.SubmissionShow = Backbone.View.extend({
   className: 'feed-item',
   tagName: 'article',
 
+  events: { 
+    'click #set-profile-picture': 'setProfilePicture'
+  },
+
   render: function () {
     var content = this.template({
       submission: this.model,
@@ -56,5 +60,24 @@ AnyGram.Views.SubmissionShow = Backbone.View.extend({
     } else {
       $favBtn.removeClass('favorited');
     }
+  },
+
+  setProfilePicture: function (event) {
+    event.preventDefault();
+    var avatar_url = this.model.get('thumb_url');
+    var profile_id = AnyGram.currentUser.profile().id;
+
+    console.log('setting profile[' + profile_id + '] picture to ' + avatar_url);
+
+    $.ajax({
+      url: '/api/profiles/' + profile_id,
+      type: 'PATCH',
+      dataType: 'json',
+      data: { profile: { avatar_url: avatar_url } },
+      success: function () {
+        console.log(arguments);
+      }
+    });
+
   }
 });

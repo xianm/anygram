@@ -30,7 +30,7 @@
       <p><%= profile.escape('bio') %></p>
 
       <div id='user-avatar-container'>
-        <img id='user-avatar' src='http://placehold.it/110x110'>
+        <img id='user-avatar' src='<%= profile.get('avatar_url') %>'>
         <p>
           <% if (AnyGram.currentUser.profile().id === profile.id) { %>
             <a id='edit-btn' class='btn btn-default' href='#/edit_profile'>Edit</a>

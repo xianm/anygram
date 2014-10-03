@@ -12,6 +12,7 @@ $.Commentable.prototype.onFormSubmit = function (event) {
 
   payload.comment.profile_id = AnyGram.currentUser.profile().id;
   payload.comment.profile_name = AnyGram.currentUser.profile().get('name');
+  payload.comment.profile_avatar_url = AnyGram.currentUser.profile().get('avatar_url');
   var comment = this.model.comments().add(payload.comment);
 
   $.ajax({

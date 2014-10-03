@@ -11,7 +11,7 @@ class Api::ProfilesController < ApplicationController
     @profile = Profile.find(params[:id])
 
     if @profile.update(profile_params)
-      render json: @profile
+      render :show
     else
       render json: @profile.errors.full_messages, status: :unprocessable_entity
     end
@@ -39,7 +39,7 @@ class Api::ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.require(:profile).permit(:name, :display_name, :location, :sex, :bio)
+    params.require(:profile).permit(:name, :display_name, :location, :sex, :bio, :avatar_url)
   end
 
   def require_ownership

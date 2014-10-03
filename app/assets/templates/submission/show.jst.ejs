@@ -8,7 +8,8 @@
         <%= submission.get('time_ago') %> ago
       </span>
     </div>
-    <img class='feed-item-avatar' src='http://placehold.it/40x40'>
+
+    <img class='feed-item-avatar' src='<%= submitter.get('avatar_url') %>'>
   </div>
 </aside>
 
@@ -24,9 +25,14 @@
       </div>
 
       <div class='feed-item-actions-btn'>
-        <a class='actions-btn' href='#/view/<%= submission.id %>'>
-          ...
-        </a>
+        <div class='actions-btn btn-group'>
+          <div class=' dropdown-toggle' data-toggle='dropdown'>
+            ...
+          </div>
+          <ul class='dropdown-menu pull-right' role='menu'>
+            <li><a href='#' id='set-profile-picture'>Make Profile Picture</a></li>
+          </ul>
+        </div>
       </div>
       <span class='feed-item-favorites'>
         <% var preview = favorers.slice(0, 3); %>
@@ -37,7 +43,7 @@
     <% if (submission.get('caption')) { %>
       <div class='feed-item-caption-container'>
         <div class='feed-item-avatar-sm-container'>
-          <img class='feed-item-avatar-sm' src='http://placehold.it/26x26'>
+          <img class='feed-item-avatar-sm' src='<%= submitter.get('avatar_url') %>'>
         </div>
 
           <span class='feed-item-caption'>
@@ -53,7 +59,7 @@
           <div class='feed-item-comment'>
             <div class='feed-item-avatar-sm-container'>
               <a href='#/profiles/<%= comment.get('profile_id') %>'>
-                <img class='feed-item-comment-avatar' src='http://placehold.it/24x24'>
+                <img class='feed-item-comment-avatar' src='<%= comment.get('profile_avatar_url') %>'>
               </a>
             </div>
 

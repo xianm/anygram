@@ -1,3 +1,9 @@
+.btn-group.open .dropdown-toggle {
+  -webkit-box-shadow: none;
+     -moz-box-shadow: none;
+          box-shadow: none;
+}
+
 #feed {
   width: 995px;
   margin: 0 auto;
@@ -141,6 +147,7 @@
 .feed-item-actions-btn {
   float: right;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0;
 }
 
 .feed-item-favorites {

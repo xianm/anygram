@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141003010043) do
+ActiveRecord::Schema.define(version: 20141003195052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,14 +50,15 @@ ActiveRecord::Schema.define(version: 20141003010043) do
   add_index "follows", ["user_id"], name: "index_follows_on_user_id", using: :btree
 
   create_table "profiles", force: true do |t|
-    t.integer  "user_id",                  null: false
-    t.string   "name",                     null: false
-    t.string   "display_name",             null: false
+    t.integer  "user_id",                                                                                               null: false
+    t.string   "name",                                                                                                  null: false
+    t.string   "display_name",                                                                                          null: false
     t.text     "bio"
     t.string   "location"
-    t.integer  "sex",          default: 0, null: false
+    t.integer  "sex",          default: 0,                                                                              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar_url",   default: "https://s3-us-west-1.amazonaws.com/any-gram-prod/images/resources/avatar.png"
   end
 
   add_index "profiles", ["name"], name: "index_profiles_on_name", unique: true, using: :btree

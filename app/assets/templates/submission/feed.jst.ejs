@@ -8,7 +8,7 @@
         <%= submission.get('time_ago') %> ago
       </span>
     </div>
-    <img class='feed-item-avatar' src='http://placehold.it/40x40'>
+    <img class='feed-item-avatar' src='<%= submitter.get('avatar_url') %>'>
   </div>
 </aside>
 
@@ -37,7 +37,7 @@
     <% if (submission.get('caption')) { %>
     <div class='feed-item-caption-container'>
       <div class='feed-item-avatar-sm-container'>
-        <img class='feed-item-avatar-sm' src='http://placehold.it/26x26'>
+        <img class='feed-item-avatar-sm' src='<%= submitter.get('avatar_url') %>'>
       </div>
 
         <span class='feed-item-caption'>
@@ -65,7 +65,7 @@
           <div class='feed-item-comment'>
             <div class='feed-item-avatar-sm-container'>
               <a href='#/profiles/<%= comment.get('profile_id') %>'>
-                <img class='feed-item-comment-avatar' src='http://placehold.it/24x24'>
+                <img class='feed-item-comment-avatar' src='<%= comment.get('profile_avatar_url') %>'>
               </a>
             </div>
 
