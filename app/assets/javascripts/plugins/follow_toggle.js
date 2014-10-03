@@ -2,6 +2,7 @@ $.FollowToggle = function (el, options) {
   this.$el = $(el);
   this.following = options.following;
   this.id = options.id;
+  this.callback = options.callback;
 
   this.$el.addClass(this.following ? 'following' : 'not-following');
   this.$el.on('click', this.handleClick.bind(this));
@@ -23,9 +24,13 @@ $.FollowToggle.prototype.handleClick = function (event) {
     dataType: 'json',
     success: function () {
       this.following = !this.following;
+
       this.$el.prop('disabled', false);
       this.$el.removeClass('following not-following');
       this.$el.addClass(this.following ? 'following' : 'not-following');
+
+      if (this.callback) this.callback(this.following);
+
       this.render();
     }.bind(this),
 
@@ -41,6 +46,10 @@ $.FollowToggle.prototype.handleClick = function (event) {
 $.FollowToggle.prototype.setButtonDisabled = function (value, text) {
   this.$el.text(text);
   this.$el.prop('disabled', value);
+};
+
+$.FollowToggle.prototype.updateCounter = function (delta) {
+  console.log(this.$counter);
 };
 
 $.FollowToggle.prototype.render = function () {

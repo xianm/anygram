@@ -14,7 +14,6 @@ AnyGram.Views.ProfileShow = Backbone.CompositeView.extend({
     });
 
     this.$el.html(content);
-
     this.attachSubviews();
 
     var sources = this.collection.map(function (s) {
@@ -26,11 +25,15 @@ AnyGram.Views.ProfileShow = Backbone.CompositeView.extend({
       $collage.collage(sources);
     }
 
+    var $counter = this.$el.find('#followers-count');
     var $followBtn = this.$el.find('#follow-btn');
     $followBtn.followToggle({
       following: this.model.get('following'),
-      $counter: this.$el.find('#followers-count'),
-      id: this.model.id
+      id: this.model.id,
+      callback: function (following) {
+        var delta = following ? 1 : -1;
+        $counter.text((parseInt($counter.text()) + delta));
+      }
     }); 
 
     return this;
