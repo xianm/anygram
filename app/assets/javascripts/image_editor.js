@@ -2,7 +2,9 @@ ImageEditor = function (options) {
   this.adjustments = {};
   this.filter = null;
   this.scale = 1;
-  this.callback = options.callback;
+  this.onRenderBegin = options.onRenderBegin;
+  this.onRenderEnd = options.onRenderEnd;
+  this.onInitialized = options.onInitialized;
 
   this.initializeKinetic(options.selector);
   this.initializeCaman(options.base64Image);
@@ -49,7 +51,7 @@ ImageEditor.prototype.initializeCaman = function (base64Image) {
     this.center(this.image.width, this.image.height, this.scale);
     
     // Initialization complete, call our callback if we have one now!
-    if (this.callback) this.callback();
+    if (this.onInitialized) this.onInitialized();
 
     this.render({});
   }.bind(this);
@@ -73,6 +75,8 @@ ImageEditor.prototype.finalizeKinetic = function () {
  *  - adjustments: a hash with the name of the adjustment and the strength
  */
 ImageEditor.prototype.render = function (options) {
+  if (this.onRenderBegin) this.onRenderBegin();
+
   options = options || {};
   var editor = this;
 
@@ -92,6 +96,8 @@ ImageEditor.prototype.render = function (options) {
     this.render(function () {
       editor.imageLayer.scale(editor.getScale());
       editor.imageLayer.draw();
+
+      if (editor.onRenderEnd) editor.onRenderEnd();
     });
   });
 };

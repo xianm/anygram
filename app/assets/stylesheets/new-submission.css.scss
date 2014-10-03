@@ -102,6 +102,12 @@
   z-index: -1;
 }
 
+.disabled-preview {
+  -webkit-filter: grayscale(100%);
+     -moz-filter: grayscale(100%);
+          filter: grayscale(100%);
+}
+
 .adjustment {
   display: inline-block;
   
@@ -118,11 +124,28 @@
   width: 150px;
 }
 
-input[type='range'] {
-  appearance: none;
-  border-radius: 3px;
-  box-shadow: inset 0 0 3px #AAA;
-  height: 5px;
-  vertical-align: middle;
+.blackout {
+  display: table;
+
+  position: fixed;
+  left: 0; top: 0;
+
   width: 100%;
+  height: 100%;
+
+  z-index: 1000;
+
+  background: rgba(0, 0, 0, 0.7);
+
+  text-align: center;
+  color: white;
+
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+}
+
+.blackout-text {
+  display: table-cell;
+  vertical-align: middle;
+  cursor: none;
 }
