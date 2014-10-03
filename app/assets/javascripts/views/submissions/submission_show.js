@@ -6,6 +6,7 @@ AnyGram.Views.SubmissionShow = Backbone.View.extend({
   },
 
   template: JST['submission/show'],
+  id: 'feed',
   className: 'feed-item',
   tagName: 'article',
 

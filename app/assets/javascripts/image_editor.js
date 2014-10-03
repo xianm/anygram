@@ -97,7 +97,7 @@ ImageEditor.prototype.render = function (options) {
 };
 
 ImageEditor.prototype.scaleToFit = function (width, height) {
-  var scale = 512 / (width > height ? width : height);
+  var scale = 512 / (width < height ? width : height);
   this.setScale(scale);
 };
 
