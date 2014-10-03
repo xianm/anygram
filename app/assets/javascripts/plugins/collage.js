@@ -3,9 +3,19 @@ $.Collage = function (el, sources, options) {
   this.sources = sources;
 
   this.$images = this.$el.find('img');
-  this.setInitialImages();
 
-  setInterval(this.updateCollage.bind(this), 3500);
+  if (this.sources.length >= this.$images.length) {
+    this.setInitialImages();
+
+    if (this.sources.length > this.$images.length) {
+      setInterval(this.updateCollage.bind(this), 3500);
+    }
+  } else {
+    // WARNING UGLY HACK
+    this.$el.empty();
+    $('#profile-header-collage').addClass('shrink');
+    $('#profile-content').addClass('shrink');
+  }
 };
 
 $.Collage.prototype.setInitialImages = function () {
