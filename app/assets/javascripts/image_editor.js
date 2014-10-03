@@ -105,12 +105,10 @@ ImageEditor.prototype.center = function (width, height, scale) {
   width *= scale;
   height *= scale;
 
-  console.log(this.imageLayer);
-  console.log(this.stage);
-  this.imageLayer.x((512 - width) / 2);
-  this.imageLayer.y((512 - height) / 2);
-  console.log(this.imageLayer);
-  console.log(this.stage);
+  this.kineticImage.position({
+    x: (512 - width) / 2,
+    y: (512 - height) / 2
+  });
 };
 
 ImageEditor.prototype.setScale = function (scale) {
