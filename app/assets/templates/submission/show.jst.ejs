@@ -53,6 +53,18 @@
       </div>
     <% } %>
 
+    <% if (submission.get('remaining_comments_count')) { %>
+      <div class='feed-item-comments-container'>
+        <div class='feed-item-comment'>
+          <span class='feed-item-comment-more'>
+            <a href='#/view/<%= submission.id %>'>
+              <%= submission.get('remaining_comments_count') %> more comments
+            </a>
+          </span>
+        </div>
+      </div>
+    <% } %>
+    
     <% if (comments) { %>
       <% comments.each(function (comment) { %>
         <div class='feed-item-comments-container'>

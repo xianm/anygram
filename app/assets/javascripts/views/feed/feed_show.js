@@ -18,10 +18,10 @@ AnyGram.Views.FeedShow = Backbone.CompositeView.extend({
     $(window).on('scroll', function () {
       if (view.canFetch) {
         var $window = $(this);
-        var $feedItem = $('.feed-item:nth-last-of-type(2)');
+        var $feedItem = $('.feed-item:nth-last-of-type(1)');
 
         if ($feedItem.length > 0) {
-          var offset = $feedItem.offset().top;
+          var offset = $feedItem.offset().top + $feedItem.height();
           var windowY = window.pageYOffset + $window.height();
 
           if (windowY > offset) {
@@ -105,7 +105,7 @@ AnyGram.Views.FeedShow = Backbone.CompositeView.extend({
   },
 
   addSubmission: function (submission) {
-    var view = new AnyGram.Views.SubmissionFeed({
+    var view = new AnyGram.Views.SubmissionShow({
       model: submission
     });
     this.addSubview('#feed-items', view, this.prependSubviews);
