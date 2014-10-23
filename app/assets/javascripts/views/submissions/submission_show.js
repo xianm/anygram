@@ -24,19 +24,13 @@ AnyGram.Views.SubmissionShow = Backbone.View.extend({
     
     this.$el.html(content);
 
-    var $favImg = this.$el.find('.fav-img');
-    $favImg.favoritable(this.model, {
-      event: 'dblclick',
-      onEventBegin: this.beginFavoriting.bind(this),
-    });
-
-    var $favBtn = this.$el.find('.fav-btn');
-    $favBtn.favoritable(this.model, { 
+    var $favs = this.$el.find('.fav-img, .fav-btn');
+    $favs.favoritable(this.model, {
       onEventBegin: this.beginFavoriting.bind(this),
     });
 
     if (this.model.get('favorited')) {
-      $favBtn.addClass('favorited');
+      $favs.addClass('favorited');
     }
 
     var $newComment = this.$el.find('.new-comment-form');
