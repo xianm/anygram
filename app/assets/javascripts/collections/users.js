@@ -1,5 +1,4 @@
 AnyGram.Collections.Users = Backbone.Collection.extend({
-  url: '/users',
   model: AnyGram.Models.User
 });
 

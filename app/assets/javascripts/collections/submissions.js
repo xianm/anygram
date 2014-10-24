@@ -1,5 +1,4 @@
 AnyGram.Collections.Submissions = Backbone.Collection.extend({
-  url: '/api/submissions',
   model: AnyGram.Models.Submission,
 });
 

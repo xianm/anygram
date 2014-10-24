@@ -16,11 +16,7 @@ AnyGram.Models.Profile = Backbone.Model.extend({
   },
 
   location: function () {
-    if (this.get('location')) {
-      return this.escape('location');
-    } else {
-      return 'Unknown';
-    }
+    return this.get('location') ? this.escape('location') : 'Unknown';
   },
 
   submissions: function () {
