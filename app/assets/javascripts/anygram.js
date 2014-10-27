@@ -25,6 +25,8 @@ window.AnyGram = {
     $('#search-bar').searchable({
       results: '#search-results'
     });
+
+    $('#alerts').alerts();
   },
 
   notFound: function () {
