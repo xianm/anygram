@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
   has_many :favorited, through: :favorites, source: :submission
 
   has_many :comments, dependent: :destroy
+
+  has_many :alerts, dependent: :destroy
+  has_many :out_alerts, class_name: 'Alert', foreign_key: 'from_id',
+    dependent: :destroy
   
   attr_reader :password
 

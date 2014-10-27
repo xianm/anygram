@@ -9,4 +9,6 @@ class Submission < ActiveRecord::Base
   has_many :favorers, through: :favorites, source: :user
 
   has_many :comments, dependent: :destroy
+
+  has_many :alerts, dependent: :destroy
 end
