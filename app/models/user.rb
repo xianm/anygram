@@ -53,10 +53,6 @@ class User < ActiveRecord::Base
     BCrypt::Password.new(self.password_digest).is_password?(password)
   end
 
-  def follows?(user)
-    followed.include?(user)
-  end
-
   def feed_submissions(limit = 7, max_created_at = nil, min_created_at = nil)
     @submissions = Submission
       .joins(:user)
@@ -95,19 +91,46 @@ class User < ActiveRecord::Base
       .order('weight DESC')
   end
 
+  def follows?(user)
+    followed.include?(user)
+  end
+
+  def follow!(user)
+    self.out_follows.create!(user: user)
+  end
+
+  def unfollow!(user)
+    self.out_follows.find_by(user: user).destroy!
+  end
+
   def favorited?(submission)
     favorited.include?(submission)
   end
 
-  def favorite!(submission_id)
-    self.favorites.create!(submission_id: submission_id)
+  def favorite!(submission)
+    self.favorites.create!(submission: submission)
+    user = submission.user;
+
+    if (user != self)
+      user.alerts.create!(from: self, submission: submission,
+                          text: "liked your picture")
+    end
   end
 
-  def unfavorite!(submission_id)
-    self.favorites.find_by(submission_id: submission_id).destroy!
+  def unfavorite!(submission)
+    self.favorites.find_by(submission: submission).destroy!
+    alerts = submission.user.alerts.find_by(from: self, submission: submission,
+                                   text: "liked your picture")
+    alerts.destroy! if alerts
   end
 
-  def comment_on(submission_id, content)
-    self.comments.create!({ submission_id: submission_id, content: content })
+  def comment_on(submission, content)
+    self.comments.create!({ submission: submission, content: content })
+    user = submission.user;
+
+    if (user != self)
+      user.alerts.create!(from: self, submission: submission,
+                          text: "left a comment on your picture: #{ content }")
+    end
   end
 end

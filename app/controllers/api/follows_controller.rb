@@ -4,15 +4,14 @@ class Api::FollowsController < ApplicationController
 
   def create
     @user = Profile.find(params[:profile_id]).user
-    @follow = current_user.out_follows.create!(user_id: @user.id)
+    current_user.follow!(@user)
 
     render json: @follow
   end
 
   def destroy
     @user = Profile.find(params[:profile_id]).user
-    @follow = current_user.out_follows.find_by(user_id: @user.id)
-    @follow.destroy!
+    current_user.unfollow!(@user)
 
     render json: @follow
   end

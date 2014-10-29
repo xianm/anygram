@@ -2,59 +2,66 @@ $.Alerts = function (el, options) {
   this.$el = $(el);
 
   this.fetchAlerts();
-  setInterval(this.refresh.bind(this), 2500);
 };
 
 $.Alerts.prototype.fetchAlerts = function () {
-  console.log("Fetching alerts...");
+  var self = this;
 
-  this.addAlert(false);
+  $.ajax({
+    url: '/api/alerts',
+    dataType: 'json',
+    success: function (data) {
+      data.forEach(function (alert) {
+        self.addAlert(alert);
+      });
+    }
+  });
 };
 
-$.Alerts.prototype.refresh = function () {
-  console.log("Refreshing alerts...");
-};
-
-$.Alerts.prototype.addAlert = function (isNew) {
-  var $alert = this.buildAlert(isNew);
+$.Alerts.prototype.addAlert = function (alert) {
+  var $alert = this.buildAlert(alert);
   this.$el.append($alert);
 };
 
-$.Alerts.prototype.buildAlert = function (isNew) {
+$.Alerts.prototype.buildAlert = function (alert) {
   var $alert = $("<div>").addClass("alert");
 
-  if (isNew) {
+  if (!alert.read) {
     $alert.addClass("new");
   }
 
-  $alert.append(this.buildAvatar("http://placehold.it/50x50", 1));
-  $alert.append(this.buildUserLink("username", 1));
-  $alert.append(this.buildText(0));
-  $alert.append(this.buildSubmission("http://placehold.it/50x50", 1));
+  $alert.append(this.buildAvatar(alert.from.avatar, alert.from.id));
+  $alert.append(this.buildContent(alert.from, alert.text));
+  $alert.append(this.buildSubmission(alert.submission.url, alert.submission.id));
 
   return $alert;
 };
 
 $.Alerts.prototype.buildAvatar = function (src, id) {
-  return this.buildLinkedImg(src, "#/profiles/" + id).addClass("avatar-sm");
+  var $div = $("<div>").addClass("avatar");
+  $div.append(this.buildLinkedImg(src, "#/profiles/" + id));
+  return $div;
+};
+
+$.Alerts.prototype.buildContent = function (from, text) {
+  var $div = $("<div>").addClass("content");
+  $div.append(this.buildUserLink(from.name, from.id));
+  $div.append(this.buildText(text));
+  return $div;
 };
 
 $.Alerts.prototype.buildUserLink = function (name, id) {
   return $("<a>").text(name).prop("href", "#/profiles/" + id);
 };
 
-$.Alerts.prototype.buildText = function (type) {
-  var text = "";
-
-  if (type === 0) { // picture liked
-    text = " liked your picture";
-  }
-
-  return $("<span>").text(text);
+$.Alerts.prototype.buildText = function (text) {
+  return $("<span>").text(" " + text);
 };
 
 $.Alerts.prototype.buildSubmission = function (src, id) {
-  return this.buildLinkedImg(src, "#/view/" + id).addClass("submission-sm");
+  var $div = $("<div>").addClass("submission");
+  $div.append(this.buildLinkedImg(src, "#/view/" + id));
+  return $div;
 };
 
 $.Alerts.prototype.buildLinkedImg = function (src, url) {
